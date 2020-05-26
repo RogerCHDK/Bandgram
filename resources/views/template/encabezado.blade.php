@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Bandgram</title>
+  <title>Bandgram</title> 
 
   <!-- Bootstrap core CSS -->
   <link href="{!!asset('estilos/vendor/bootstrap/css/bootstrap.min.css')!!}" rel="stylesheet">
@@ -21,6 +21,8 @@
 
   <!-- Custom styles for this template -->
   <link href="{!!asset('estilos/css/grayscale.min.css')!!}" rel="stylesheet">
+
+
 
 </head>
 

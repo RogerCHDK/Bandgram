@@ -48,7 +48,7 @@ class BandasController extends Controller
     public function store(Request $request)
     {
         $banda=Banda::create($request->all());
-        return redirect()->route('artista.index');
+        return redirect()->route('bandas.index'); 
     }
 
     /**
