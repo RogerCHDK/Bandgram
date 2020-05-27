@@ -9,7 +9,7 @@
             <div class="row d-md-flex d-lg-flex d-xl-flex justify-content-md-center justify-content-lg-center justify-content-xl-center mb-3">
                 <div class="col-lg-7">
                     <div class="p-5"> 
-						{!! Form::open(['url' => 'bandas']) !!} 
+						{!! Form::open(['url' => 'bandas','files' => true]) !!} 
 						@csrf 
 						<div class="form-group row">
 						{!!Form::label('nombre', 'Nombre de la banda: ',['style'=>'font-size: 18px;color: rgb(0,0,0);']); !!} 

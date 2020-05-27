@@ -6,8 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Genero;
 use App\Banda;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File; 
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Http\Response; 
 
-class BandasController extends Controller
+class BandasController extends Controller 
 {
     /** 
      * Display a listing of the resource.
@@ -47,7 +51,31 @@ class BandasController extends Controller
      */ 
     public function store(Request $request)
     {
-        $banda=Banda::create($request->all());
+        $imagen = $request->file('foto');  
+        if ($imagen) {
+            //ponerle un nombre unico
+            $imagen_nombre = time().$imagen->getClientOriginalName();
+            $imagen_redimensionada = Image::make($imagen);
+
+            //Guardar la imagen
+            //Storage::disk('cancion')->put($imagen_nombre, File::get($imagen));
+            $imagen_redimensionada->resize(200,null,function($c){
+                $c->aspectRatio();
+            })->save(storage_path('app/bandas/'.$imagen_nombre));
+
+            $request->foto = $imagen_nombre;
+
+        }
+
+        $banda=Banda::create(
+           [ 'nombre' => $request->nombre,
+            'biografia'=>$request->biografia,
+            'foto'=>$request->foto,
+            'genero_id' => $request->genero_id,
+            'artista_id' => $request->artista_id,
+            'status' => $request->status,
+        ]
+        );
         return redirect()->route('bandas.index'); 
     }
 
@@ -112,5 +140,12 @@ class BandasController extends Controller
     {
         $bandas = Banda::all();
         return view('banda.index_usuario',compact("bandas"));
+    }
+
+    //Obtener imagen de la banda
+    public function getImage($fileName)
+    {
+        $file = Storage::disk('bandas')->get($fileName);
+        return new Response($file, 200);
     }
 }

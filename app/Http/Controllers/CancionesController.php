@@ -8,7 +8,7 @@ use App\Genero;
 use Illuminate\Support\Facades\Auth;
 use App\Cancion;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\File; 
 use Intervention\Image\ImageManagerStatic as Image;
 
 class CancionesController extends Controller
@@ -52,7 +52,7 @@ class CancionesController extends Controller
      */
     public function store(Request $request)
     { 
-        $imagen = $request->file('foto'); 
+        $imagen = $request->file('foto');  
         $cancion = $request->file('ruta');
         //$request->hasFile('foto')
         if ($imagen) {

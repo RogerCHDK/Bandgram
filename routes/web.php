@@ -39,3 +39,4 @@ Route::get('/index_banda', 'BandasController@index_usuario')->name('bandas.index
 Route::get('cancion-imagen/{filename}', 'CancionesController@getImage')->name('cancion.imagen');
 Route::get('cancion-audio/{filename}', 'CancionesController@getMusic')->name('cancion.audio');
 Route::get('video-media/{filename}', 'VideosController@getVideo')->name('video.media');
+Route::get('banda-imagen/{filename}', 'BandasController@getImage')->name('banda.imagen');

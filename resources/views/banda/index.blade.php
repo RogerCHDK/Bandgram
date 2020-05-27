@@ -21,7 +21,7 @@
  	<tr>
  		<td>{{$banda->nombre}}</td>
  		<td>{{$banda->biografia}}</td>
- 		<td>{{$banda->foto}}</td>
+ 		<td><img src="{{route('banda.imagen',$banda->foto)}}" style="min-width: 40%;max-height: 576px;"></td>
  		<td>{{$banda->genero->nombre}}</td>
  		<td>{{$banda->artista->nombre}}</td>
  		<td>

@@ -5,11 +5,11 @@
  <a class="btn btn-primary" style="width: 250px; height: 45px;" href="{{route('canciones.create')}}">Agregar canción</a>  
  @if($canciones->isNotEmpty())
 
- <table class="table">
+ <table class="table"> 
  	<thead class="thead-dark">
  	<tr>
  	<th>Nombre</th>
-    <th>Ruta </th>
+    <th>Ruta </th> 
     <th>Album</th>
     <th>Foto </th> 
     <th>Genero </th>

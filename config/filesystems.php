@@ -82,6 +82,18 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+        'bandas' => [
+            'driver' => 'local',
+            'root' => storage_path('app/bandas'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+        'artista' => [
+            'driver' => 'local',
+            'root' => storage_path('app/artista'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
 
     ],
 

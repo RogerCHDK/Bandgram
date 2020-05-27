@@ -9,6 +9,9 @@ use App\Artista;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File; 
+use Intervention\Image\ImageManagerStatic as Image;
 
 class RegisterController extends Controller
 {
@@ -91,6 +94,22 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
         }elseif ($data['tipo_usuario'] == 2) {
+
+            $imagen = $data['foto'];
+            if ($imagen) {
+                //ponerle un nombre unico
+            $imagen_nombre = time().$imagen->getClientOriginalName();
+            $imagen_redimensionada = Image::make($imagen);
+
+            //Guardar la imagen
+            //Storage::disk('cancion')->put($imagen_nombre, File::get($imagen));
+            $imagen_redimensionada->resize(200,null,function($c){
+                $c->aspectRatio();
+            })->save(storage_path('app/artista/'.$imagen_nombre));
+
+            $data['foto'] = $imagen_nombre;
+            }
+
             return Artista::create([
             'nombre' => $data['nombre'],
             'email' => $data['email'],
