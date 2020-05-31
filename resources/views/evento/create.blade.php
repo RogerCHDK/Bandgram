@@ -1,14 +1,36 @@
 @extends('template.master_artista')
+
+<script>
+  function llenar_municipios(estado_id){
+    $("#municipio_id").empty();
+    var asset = '{{asset('')}}';
+    var ruta = asset + 'combo_municipios/'+estado_id;
+    //alert(ruta);
+    
+    $.ajax({
+      type: 'GET',
+      url: ruta,
+      success:function(data){
+        var municipios = data;
+		for(var i = 0; i< municipios.length; i++){
+			$("#municipio_id").append('<option value="'+ municipios[i].id + '">'+ municipios[i].nombre
+				+ '</option>');
+		}
+      }
+    });
+
+  }
+</script>
 @section('contenido_central')  
 
 		<div class="card shadow">
         <div class="card-header py-3">
-            <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">Crear Producto</p>
+            <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">Crear Evento</p>
         </div> 
-	<div class="card-body"> 
+	<div class="card-body">  
             <div class="row d-md-flex d-lg-flex d-xl-flex justify-content-md-center justify-content-lg-center justify-content-xl-center mb-3">
                 <div class="col-lg-7">
-                    <div class="p-5">  
+                    <div class="p-5">   
 							{!! Form::open(['url' => 'eventos']) !!}  
 							@csrf 
 							<div class="form-group row"> 
@@ -25,11 +47,11 @@
 							</div>
 							<div class="form-group row">
 							{!!Form::label('estado_id', 'Estado: ',['style'=>'font-size: 18px;color: rgb(0,0,0);margin-right: 10px;max-width: 100%;min-width: 100%;']); !!} 
-							{!!Form::select('estado_id', $estado->pluck('nombre','id'),null,['placeholder' => 'Estado','class'=>'form-control display-inline-block','style'=>'height: 50px;font-size: 18px;color: rgb(0,0,0);']) !!} 
+							{!!Form::select('estado_id', $estado->pluck('nombre','id'),null,['placeholder' => 'Estado','class'=>'form-control display-inline-block','style'=>'height: 50px;font-size: 18px;color: rgb(0,0,0);','onchange'=>'llenar_municipios(this.value);']) !!} 
 							</div>
 							<div class="form-group row">
 							{!!Form::label('municipio_id', 'Municipio: ',['style'=>'font-size: 18px;color: rgb(0,0,0);margin-right: 10px;max-width: 100%;min-width: 100%;']); !!} 
-							{!!Form::select('municipio_id', $municipio->pluck('nombre','id'),null,['placeholder' => 'Municipio','class'=>'form-control display-inline-block','style'=>'height: 50px;font-size: 18px;color: rgb(0,0,0);']) !!} 
+							{!!Form::select('municipio_id', array(''=>'Seleccionar ..'),null,['placeholder' => 'Municipio','class'=>'form-control display-inline-block','style'=>'height: 50px;font-size: 18px;color: rgb(0,0,0);']) !!} 
 							 </div>
 							<div class="form-group row">
 							{!!Form::label('calle', 'Calle: ',['style'=>'font-size: 18px;color: rgb(0,0,0);']); !!} 

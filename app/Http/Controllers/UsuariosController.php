@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; 
 use App\User;
+use App\Estado; 
+use App\Municipio;
 
 class UsuariosController extends Controller
 { 
@@ -28,7 +30,9 @@ class UsuariosController extends Controller
      */
     public function create()
     {
-        return view('usuario.create');
+        $estado = Estado::all();
+        $municipio = Municipio::all();
+        return view('usuario.create')->with('estado',$estado)->with('municipio',$municipio);
     }
 
     /**

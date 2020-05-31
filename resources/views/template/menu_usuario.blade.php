@@ -10,8 +10,8 @@
           Perfíl 
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="{{route('artista.index')}}">Mi perfil</a>
-          <a class="dropdown-item" href="#">Editar</a> 
+          <a class="dropdown-item" href="{{route('usuario.index')}}">Mi perfil</a>
+          <a class="dropdown-item" href="#">Editar</a>  
           <a class="dropdown-item" href="{{ route('logout') }}" 
           onclick="event.preventDefault();
           document.getElementById('logout-form').submit();">

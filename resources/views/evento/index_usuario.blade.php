@@ -2,11 +2,12 @@
 
 @section('contenido_central')     
  <br/><br/><br/><br/>
+ <a class="btn btn-primary" style="width: 250px; height: 45px;" href="{{route('eventos.create')}}">Agregar evento</a>  
  @if($eventos->isNotEmpty()) 
 
  <table class="table">
  	<thead class="thead-dark">
- 	<tr>
+ 	<tr> 
  	<th>Descripción</th>
     <th>Fecha Creación </th>
     <th>Fecha Inicio</th>
@@ -35,6 +36,7 @@
  		<td>{{$evento->artista->nombre}}</td>
  		<td>
  			<a href="{{route('eventos.show',$evento->id)}}" class="btn btn-link"><span class="oi oi-eye"></span></a>
+            <a href="{{route('eventos.edit',$evento->id)}}" class="btn btn-link"><span class="oi oi-pencil"></span></a>
  		</td>
 
  	</tr>

@@ -1,11 +1,11 @@
  @extends('template.master_artista')
 @section('contenido_central')  
 
-		<div class="card shadow">
+		<div class="card shadow"> 
         <div class="card-header py-3">
             <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">Crear canción</p>
         </div> 
-	<div class="card-body">  
+	<div class="card-body">   
             <div class="row d-md-flex d-lg-flex d-xl-flex justify-content-md-center justify-content-lg-center justify-content-xl-center mb-3">
                 <div class="col-lg-7">
                     <div class="p-5">
@@ -17,7 +17,7 @@
 					     </div>
 					     <div class="form-group row">
 						{!!Form::label('ruta', 'Selecciona la canción: ',['style'=>'font-size: 18px;color: rgb(0,0,0);']); !!} 
-						{!!Form::file('ruta')!!} 
+						{!!Form::file('ruta')!!}  
 						</div>
 						 <div class="form-group row">
 						{!!Form::label('album', 'Album: ',['style'=>'font-size: 18px;color: rgb(0,0,0);']); !!} 

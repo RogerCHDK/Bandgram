@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File; 
 use Intervention\Image\ImageManagerStatic as Image;
 
-class CancionesController extends Controller
+class CancionesController extends Controller 
 {
     /**
      * Display a listing of the resource.
@@ -19,11 +19,10 @@ class CancionesController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function __construct()
+     public function __construct() 
     {
-        //$this->middleware('auth'); 
+        $this->middleware('artista',['except'=>['index_usuario','show']]); 
         $this->middleware('auth:artista',['except'=>['index_usuario','show']]);
-        //$this->middleware('auth:web',);
     }
     public function index()
     {
@@ -86,8 +85,9 @@ class CancionesController extends Controller
                 'status' => $request->status,
             ]
                 );
+                $message = "Cancion ". $cancion->nombre ." creada correctamente";
 
-        return redirect()->route('canciones.index');
+        return redirect()->route('canciones.index')->with('message',$message);
     } 
 
     /**
@@ -129,7 +129,8 @@ class CancionesController extends Controller
         $cancion->album = $request->album; 
         $cancion->genero_id = $request->genero_id; 
         $cancion->save(); 
-        return redirect()->route('canciones.index');
+        $message = "Cambios guardados correctamente";
+        return redirect()->route('canciones.index')->with('message',$message);
     } 
 
     /**

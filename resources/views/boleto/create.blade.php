@@ -3,9 +3,9 @@
  
 		<div class="card shadow">
         <div class="card-header py-3">
-            <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">Crear Producto</p>
+            <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">Crear Boleto</p>
         </div> 
-	<div class="card-body"> 
+	<div class="card-body">  
             <div class="row d-md-flex d-lg-flex d-xl-flex justify-content-md-center justify-content-lg-center justify-content-xl-center mb-3">
                 <div class="col-lg-7">
                     <div class="p-5"> 

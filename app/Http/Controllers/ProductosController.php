@@ -18,6 +18,7 @@ class ProductosController extends Controller
      public function __construct()
     {
         //$this->middleware('auth');
+        $this->middleware('artista',['except'=>['index_usuario','show']]); 
         $this->middleware('auth:artista',['except'=>['index_usuario','show']]);
     }
 

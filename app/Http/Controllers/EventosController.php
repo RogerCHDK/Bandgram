@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Evento;
-use App\Estado;
+use App\Estado; 
 use App\Municipio;
 
 
@@ -20,7 +20,7 @@ class EventosController extends Controller
 
     public function __construct() 
     {
-        //$this->middleware('auth');
+        $this->middleware('artista',['except'=>['index_usuario','show']]); 
         $this->middleware('auth:artista',['except'=>['index_usuario','show']]);
     }
 
@@ -36,7 +36,7 @@ class EventosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() 
+    public function create()  
     {
         $estado = Estado::all();
         $municipio = Municipio::all();

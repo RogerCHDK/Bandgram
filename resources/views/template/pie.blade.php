@@ -7,7 +7,7 @@
           <i class="fab fa-facebook-f"></i>
         </a>
         <a href="#" class="mx-2">
-          <i class="fab fa-github"></i>
+          <i class="fab fa-github"></i> 
         </a>
       </div>
 </section>
@@ -28,6 +28,10 @@
 
   <!-- Custom scripts for this template -->
   <script src="{!!asset('estilos/js/grayscale.min.js')!!}"></script>
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  
 
 </body>
 

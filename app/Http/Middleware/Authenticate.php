@@ -15,7 +15,16 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
+            $usuario=\Auth::user();
+        if (isset($usuario)) {
+            if ($usuario->tipo_usuario == 1) {
+                return route('usuario.error');
+            }else if ($usuario->tipo_usuario == 2) {
+                return route('artista.error');
+            }
+        }else{
             return route('login');
+        }
         }
     }
 }
