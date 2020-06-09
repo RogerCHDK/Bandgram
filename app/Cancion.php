@@ -13,7 +13,7 @@ class Cancion extends Model
 
     public function artista()
     {
-        return $this->belongsTo('App\Artista');
+        return $this->belongsTo('App\Artista'); 
     }
 
     public function genero()

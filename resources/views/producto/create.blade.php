@@ -1,7 +1,7 @@
 @extends('template.master_artista')
 @section('contenido_central')  
 
-		<div class="card shadow">
+		<div class="card shadow"> 
         <div class="card-header py-3">
             <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">Crear Producto</p>
         </div> 

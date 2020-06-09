@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Evento;
 use App\Estado; 
 use App\Municipio;
-
+ 
 
 
 class EventosController extends Controller
@@ -76,9 +76,9 @@ class EventosController extends Controller
      */
     public function edit($id)
     {
-        $estado = Estado::all();
-        $municipio = Municipio::all();
         $eventos = Evento::findOrFail($id);
+        $estado = Estado::all();
+        $municipio = Municipio::where("estado_id",$eventos->estado_id)->get();
         return view('evento.edit')->with('evento',$eventos)->with('estado',$estado)->with('municipio',$municipio);
     }
 

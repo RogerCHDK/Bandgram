@@ -6,7 +6,7 @@
  <div class="card shadow">
         <div class="card-header py-3">
             <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">{{$canciones->nombre}}</p> 
-        </div>
+        </div> 
 
 		<div class="card-body"> 
             <div class="row">
@@ -48,26 +48,5 @@
             </div>
         </div>
      </div>
-
-
-
-
-
-{{-- <div class="row">
-	<div class="col">	
-	<label> Ruta :</label>
-	<label>{{$canciones->ruta}}</label>
-	 </div>
- </div>
-
-
-
- <div class="row">
-	<div class="col">	
-	<label> Artista :</label>
-	<label>{{$canciones->artista->nombre}}</label>
-	 </div>
- </div> --}}
- 
 
 @endsection 

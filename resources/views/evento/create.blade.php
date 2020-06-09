@@ -7,8 +7,8 @@
     var ruta = asset + 'combo_municipios/'+estado_id;
     //alert(ruta);
     
-    $.ajax({
-      type: 'GET',
+    $.ajax({ 
+      type: 'GET', 
       url: ruta,
       success:function(data){
         var municipios = data;
@@ -25,9 +25,9 @@
 
 		<div class="card shadow">
         <div class="card-header py-3">
-            <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">Crear Evento</p>
+            <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">Crear Evento</p> 
         </div> 
-	<div class="card-body">  
+	<div class="card-body">
             <div class="row d-md-flex d-lg-flex d-xl-flex justify-content-md-center justify-content-lg-center justify-content-xl-center mb-3">
                 <div class="col-lg-7">
                     <div class="p-5">   
@@ -63,7 +63,7 @@
 							</div>
 							<div class="form-group row">
 							{!!Form::label('nombre_locacion', 'Nombre Locación: ',['style'=>'font-size: 18px;color: rgb(0,0,0);']); !!} 
-						    {!!Form::text('nombre_locacion', null,['placeholder'=>'Ingresa la locación','class' => 'form-control form-control-user','type'=>'text','style'=>'font-size: 18px;color: rgb(0,0,0);']); !!} 
+						    {!!Form::text('nombre_locacion', null,['placeholder'=>'Ingresa la locación','class' => 'form-control form-control-user','type'=>'text','style'=>'font-size: 18px;color: rgb(0,0,0);']); !!}  
 							</div>
 							 {!!Form::hidden('artista_id',$artista); !!} 
 							{!!Form::hidden('status', 1); !!}
@@ -78,3 +78,5 @@
 					    </div>
 	
 	@endsection 
+
+	document.getElmentById('texto').value,document.getElmentById('id_persona').value

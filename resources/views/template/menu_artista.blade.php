@@ -40,6 +40,12 @@
       <li class="nav-item active"> 
         <a class="nav-link" href="{{route('bandas.index')}}">Bandas</a> 
       </li>
+      <li class="nav-item active"> 
+        <a class="nav-link" href="{{route('reportes')}}">Reportes</a> 
+      </li>
+      <li class="nav-item active"> 
+        <a class="nav-link" href="{{route('correo.create')}}">Correos</a> 
+      </li>
     </ul>
   </div>
 </nav>

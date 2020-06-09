@@ -1,7 +1,11 @@
   @extends('template.master_artista')
 
 @section('contenido_central')    
- <br/><br/><br/><br/>
+@if(session('message')) 
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif
  <a class="btn btn-primary" style="width: 250px; height: 45px;" href="{{route('productos.create')}}">Agregar producto</a> 
 
  @if($productos->isNotEmpty()) 

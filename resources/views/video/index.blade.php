@@ -2,7 +2,11 @@
 
 @section('contenido_central')  
 
-<br/><br/><br/><br/>
+@if(session('message')) 
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif
  <a class="btn btn-primary" style="width: 250px; height: 45px;" href="{{route('videos.create')}}">Agregar video</a>  
 
  @if($videos->isNotEmpty()) 
@@ -10,7 +14,7 @@
  	<thead class="thead-dark">
  	<tr>
  	<th>Nombre</th>
-    <th>Ruta </th>
+    <th>Ruta </th> 
     <th>Artista </th>
     <th>Acciones </th>
  	</tr>

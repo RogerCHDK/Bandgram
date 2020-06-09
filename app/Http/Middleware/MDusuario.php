@@ -7,7 +7,7 @@ use Closure;
 class MDusuario
 {
     /**
-     * Handle an incoming request.
+     * Handle an incoming request.  
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -15,6 +15,14 @@ class MDusuario
      */
     public function handle($request, Closure $next)
     {
+        $usuario=\Auth::user();
+        if (isset($usuario)) {
+            if ($usuario->tipo_usuario!=1) {
+                return redirect('sin_acceso');
+            }
+        }else{
+            return redirect('login');
+        }
         return $next($request);
     }
 }

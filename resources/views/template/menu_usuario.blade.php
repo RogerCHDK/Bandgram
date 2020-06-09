@@ -7,7 +7,7 @@
     <ul class="navbar-nav">
       <li class="nav-item dropdown active"> 
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Perfíl 
+          Perfíl  
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="{{route('usuario.index')}}">Mi perfil</a>
@@ -38,6 +38,9 @@
       </li>
       <li class="nav-item active"> 
         <a class="nav-link" href="{{route('bandas.index_usuario')}}">Bandas</a> 
+      </li>
+      <li class="nav-item active"> 
+        <a class="nav-link" href="{{route('graficas.index')}}">Gráficas</a> 
       </li>
     </ul>
   </div>

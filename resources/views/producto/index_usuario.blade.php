@@ -13,7 +13,7 @@
     <th>Descripcion</th>
     <th>Artista </th> 
     <th>Categoria </th>
-    <th>Stock </th>
+    <th>Stock </th> 
     <th>Acciones </th>
  	</tr>
  	 </thead>
@@ -35,6 +35,8 @@
  	  </tbody>
 
  </table>
-@endif
+@endif 
+
+
 
  @endsection 

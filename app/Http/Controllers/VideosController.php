@@ -62,7 +62,9 @@ class VideosController extends Controller
                 'status' => $request->status,
             ]
                 );
-        return redirect()->route('videos.index');
+
+        $message = "Video ". $video->nombre ." creado correctamente";
+        return redirect()->route('videos.index')->with('message',$message);
     }
 
     /**
@@ -99,10 +101,19 @@ class VideosController extends Controller
     public function update(Request $request, $id)
     {
         $video = Video::findOrFail($id); 
-        $video->nombre = $request->nombre; 
-        $video->ruta = $request->ruta; 
+        $video->nombre = $request->nombre;
+        
+        if ($request->hasFile('ruta')) { 
+           $ruta = $request->file('ruta'); 
+           $video_nombre = time().'_'.$ruta->getClientOriginalName();
+           Storage::disk('videos')->put($video_nombre, File::get($ruta));
+           Storage::disk('videos')->delete($video->ruta); 
+            $video->ruta = $video_nombre;
+        }
+        
         $video->save(); 
-        return redirect()->route('videos.index');
+        $message = "Cambios guardados correctamente";
+        return redirect()->route('videos.index')->with('message',$message);
     }
 
     /**

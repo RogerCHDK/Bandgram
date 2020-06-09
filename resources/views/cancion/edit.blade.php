@@ -8,8 +8,8 @@
 	<div class="card-body">   
             <div class="row d-md-flex d-lg-flex d-xl-flex justify-content-md-center justify-content-lg-center justify-content-xl-center mb-3">
                 <div class="col-lg-7">
-                    <div class="p-5">
-							{!! Form::open(['method' => 'PATCH','url' => 'canciones/'.$cancion->id]) !!} 
+                    <div class="p-5"> 
+							{!! Form::open(['method' => 'PATCH','url' => 'canciones/'.$cancion->id,'files' => true]) !!} 
 							@csrf 
 							<div class="form-group row">
 							{!!Form::label('nombre', 'Nombre de la cancion: ',['style'=>'font-size: 18px;color: rgb(0,0,0);'])!!} 
@@ -18,6 +18,14 @@
 					     	<div class="form-group row">
 							{!!Form::label('album', 'Album: ',['style'=>'font-size: 18px;color: rgb(0,0,0);']); !!} 
 						    {!!Form::text('album', $cancion->album,['placeholder'=>'Ingresa el nombre del album','class' => 'form-control form-control-user','type'=>'text','style'=>'font-size: 18px;color: rgb(0,0,0);']) !!} 
+							</div>
+							<div class="form-group row">
+							{!!Form::label('ruta', 'Selecciona la canción: ',['style'=>'font-size: 18px;color: rgb(0,0,0);']); !!} 
+							{!!Form::file('ruta')!!}  
+							</div>
+							<div class="form-group row">
+							{!!Form::label('foto', 'Sube una foto: ',['style'=>'font-size: 18px;color: rgb(0,0,0);']); !!} 
+							{!!Form::file('foto')!!}
 							</div>
 					     	<div class="form-group row">
 							{!!Form::label('genero_id', 'Género Musical: ',['style'=>'font-size: 18px;color: rgb(0,0,0);margin-right: 10px;max-width: 100%;min-width: 100%;']) !!} 

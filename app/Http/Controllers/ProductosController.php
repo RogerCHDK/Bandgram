@@ -47,10 +47,11 @@ class ProductosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) 
     {
         $producto=Producto::create($request->all());
-        return redirect()->route('productos.index');
+        $message = "Producto ". $producto->nombre ." creado correctamente";
+        return redirect()->route('productos.index')->with('message',$message);
     }
 
     /**
@@ -93,8 +94,9 @@ class ProductosController extends Controller
         $productos->descripcion = $request->descripcion;
         $productos->categoria_id = $request->categoria_id;
         $productos->stock = $request->stock;
-        $productos->save(); 
-        return redirect()->route('productos.index');
+        $productos->save();  
+        $message = "Cambios guardados correctamente";
+        return redirect()->route('productos.index')->with('message',$message);
     }
 
     /**

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('bienvenida'); 
+    return view('bienvenida');  
 })->name('inicio'); 
 
 Auth::routes();
@@ -43,6 +43,8 @@ Route::get('banda-imagen/{filename}', 'BandasController@getImage')->name('banda.
 
 //Metodos ajax
 Route::get('combo_municipios/{estado_id}', 'AjaxController@municipios');
+Route::get('filtrar_genero/{genero_id}', 'AjaxController@filtrar_genero');
+ 
 
 Route::group(['middleware'=>'auth'], function(){
 Route::get('sin_acceso', function(){
@@ -68,3 +70,11 @@ Route::group(['middleware'=>'artista'], function(){
 	//Route::resource('boletos','BoletosController'); 
 	//Route::resource('bandas','BandasController');
 	});
+
+//Graficas
+
+Route::get('graficas-usuario/', 'GraficasController@index')->name('graficas.index');
+Route::get('reportes/', 'PdfController@genera_pdf')->name('reportes');
+Route::get('reporte-cancion/{tipo}', 'PdfController@crear_reporte_canciones')->name('reporte.cancion');
+Route::get('form_enviar_correo', 'CorreoController@create')->name('correo.create');
+Route::post('enviar_correo', 'CorreoController@enviar')->name('correo.enviar');
