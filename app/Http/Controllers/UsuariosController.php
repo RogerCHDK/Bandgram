@@ -12,13 +12,12 @@ class UsuariosController extends Controller
 { 
      public function __construct() 
     {
-        $this->middleware('auth');  
+        $this->middleware('auth',['except'=>['create']]);   
     }
     public function index()
     {
         
         $usuario = Auth::user();
-        
         return view('usuario.index',compact("usuario"));
     }
 

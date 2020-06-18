@@ -14,7 +14,7 @@
     <th>Hora Inicio </th> 
     <th>Calle </th>
     <th>Colonia </th>
-    <th>Estado </th>
+    <th>Estado </th> 
     <th>Municipio </th>
     <th>Nombre Locación </th>
     <th>Artista </th>
@@ -36,6 +36,7 @@
  		<td>{{$evento->artista->nombre}}</td>
  		<td>
  			<a href="{{route('eventos.show',$evento->id)}}" class="btn btn-link"><span class="oi oi-eye"></span></a>
+            <a href="{{route('evento.imagen',$evento->id)}}" class="btn btn-link">Imagen</a> 
  			<a href="{{route('eventos.edit',$evento->id)}}" class="btn btn-link"><span class="oi oi-pencil"></span></a>
  			{!!Form::open(['method' =>'DELETE', 'url' =>'eventos/'.$evento->id]) !!}
  			{!!Form::submit('Eliminar',['class' => 'btn btn-primary']) !!}

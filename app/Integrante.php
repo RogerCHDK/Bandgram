@@ -18,6 +18,6 @@ class Integrante extends Model
 
     public function banda() 
     {
-        return $this->belongsTo('App\Banda');
+        return $this->belongsTo('App\Banda');  
     }
 }

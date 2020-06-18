@@ -528,6 +528,7 @@ class ComposerStaticInitafc19fe4f45a38a3170ce03d1ff45876
         'App\\Http\\Controllers\\CancionesController' => __DIR__ . '/../..' . '/app/Http/Controllers/CancionesController.php',
         'App\\Http\\Controllers\\CategoriasController' => __DIR__ . '/../..' . '/app/Http/Controllers/CategoriasController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\CorreoController' => __DIR__ . '/../..' . '/app/Http/Controllers/CorreoController.php',
         'App\\Http\\Controllers\\EstadosController' => __DIR__ . '/../..' . '/app/Http/Controllers/EstadosController.php',
         'App\\Http\\Controllers\\EventosController' => __DIR__ . '/../..' . '/app/Http/Controllers/EventosController.php',
         'App\\Http\\Controllers\\FotosEventosController' => __DIR__ . '/../..' . '/app/Http/Controllers/FotosEventosController.php',

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <a class="navbar-brand" href="{{route('inicio')}}">BANDGRAM</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -8,10 +8,10 @@
       <li class="nav-item dropdown active"> 
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Perfíl 
-        </a>
+        </a> 
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="{{route('artista.index')}}">Mi perfil</a>
-          <a class="dropdown-item" href="#">Unirse a una banda</a>
+          <a class="dropdown-item" href="{{route('bandas.index')}}">Unirse a una banda</a>
           <a class="dropdown-item" href="#">Editar</a> 
           <a class="dropdown-item" href="{{ route('logout') }}" 
           onclick="event.preventDefault();
@@ -37,8 +37,12 @@
       <li class="nav-item active"> 
         <a class="nav-link" href="{{route('boletos.index')}}">Mis boletos</a>
       </li>
-      <li class="nav-item active"> 
-        <a class="nav-link" href="{{route('bandas.index')}}">Bandas</a> 
+      <li class="nav-item dropdown active"> 
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Mis bandas</a> 
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+         <a class="dropdown-item" href="{{route('bandas.mine')}}">Bandas</a>
+          <a class="dropdown-item" href="{{route('integrantes.index')}}">Peticiones</a>
+        </div>  
       </li>
       <li class="nav-item active"> 
         <a class="nav-link" href="{{route('reportes')}}">Reportes</a> 

@@ -40,8 +40,8 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <span style="color: rgb(0,0,0);font-size: 18px;">Canción de&nbsp;<a class="event_title" href="view-profile.html" style="font-size: 20px;">{{$canciones->artista->nombre}}</a></span>
-                            </div>
+                                <span style="color: rgb(0,0,0);font-size: 18px;">Canción de&nbsp;<a class="event_title" href="{{route('artista.show',$canciones->artista->id)}}" style="font-size: 20px;">{{$canciones->artista->nombre}}</a></span>
+                            </div> 
                         </div>
                     </div>
                 </div>

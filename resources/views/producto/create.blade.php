@@ -7,14 +7,14 @@
         </div> 
 	<div class="card-body"> 
             <div class="row d-md-flex d-lg-flex d-xl-flex justify-content-md-center justify-content-lg-center justify-content-xl-center mb-3">
-                <div class="col-lg-7">
+                <div class="col-lg-7"> 
                     <div class="p-5">
-							{!! Form::open(['url' => 'productos']) !!} 
+							{!! Form::open(['url' => 'productos']) !!}
 							@csrf 
 							<div class="form-group row">
 							{!!Form::label('nombre', 'Nombre del producto: ',['style'=>'font-size: 18px;color: rgb(0,0,0);']); !!} 
 						    {!!Form::text('nombre', null,['placeholder'=>'Ingresa el nombre del producto','class' => 'form-control form-control-user','type'=>'text','style'=>'font-size: 18px;color: rgb(0,0,0);']); !!} 
-							</div>
+							</div> 
 							<div class="form-group row">
 							{!!Form::label('precio', 'Ingresa el precio: ',['style'=>'font-size: 18px;color: rgb(0,0,0);']); !!}
 							{!!Form::number('precio',null,['step'=>'any','placeholder'=>'Precio','class'=>'form-control form-control-user','style'=>'font-size: 18px;color: rgb(0,0,0);']);!!}
@@ -41,5 +41,5 @@
 					            </div>
 					        </div>
 					    </div>
-	
+
 	@endsection

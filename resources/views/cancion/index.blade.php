@@ -13,7 +13,7 @@
  <table class="table"> 
  	<thead class="thead-dark">
  	<tr>
- 	<th>Nombre</th>
+ 	<th>Nombre</th> 
     <th>Ruta </th> 
     <th>Album</th>
     <th>Foto </th> 

@@ -7,10 +7,17 @@ use Illuminate\Support\Facades\Auth;
 use App\Evento;
 use App\Estado; 
 use App\Municipio;
+use App\FotoEvento;
+use App\Http\Requests; 
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File; 
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Http\Response;
  
 
 
-class EventosController extends Controller
+class EventosController extends Controller 
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +27,8 @@ class EventosController extends Controller
 
     public function __construct() 
     {
-        $this->middleware('artista',['except'=>['index_usuario','show']]); 
-        $this->middleware('auth:artista',['except'=>['index_usuario','show']]);
+        $this->middleware('artista',['except'=>['index_usuario','show','getImage']]); 
+        $this->middleware('auth:artista',['except'=>['index_usuario','show','getImage']]);
     }
 
     public function index()
@@ -62,10 +69,12 @@ class EventosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id) 
     {
         $eventos = Evento::findOrFail($id); 
-        return view('evento.show',compact("eventos"));
+        $fotos = FotoEvento::where('evento_id',$id)->get();
+        //$bandera = true;
+        return view('evento.show')->with('eventos',$eventos)->with('fotos',$fotos);
     } 
 
     /**
@@ -122,5 +131,46 @@ class EventosController extends Controller
     {
         $eventos = Evento::all();
         return view('evento.index_usuario',compact("eventos"));
+    }
+
+    public function imagen($id)
+    { 
+        $eventos = Evento::findOrFail($id);
+        return view('evento.agregar_imagenes',compact("eventos")); 
+    }
+
+    public function crear_imagen(Request $request)
+    { 
+        $imagen = $request->file('foto');  
+        $message = "";
+        if ($imagen) {
+             //ponerle un nombre unico
+            $imagen_nombre = time().$imagen->getClientOriginalName();
+            $imagen_redimensionada = Image::make($imagen);
+
+            $imagen_redimensionada->resize(200,null,function($c){
+                $c->aspectRatio(); 
+            })->save(storage_path('app/eventos/'.$imagen_nombre));
+            
+            $foto_evento=FotoEvento::create(
+                [
+                'nombre' => $request->nombre, 
+                'foto' => $imagen_nombre,
+                'evento_id' => $request->evento_id,
+                'status' => $request->status,
+            ]
+                );
+            $message = "Foto agregada"; 
+        } 
+
+        
+        return redirect()->route('eventos.index')->with('message',$message);
+    }
+
+    //Obtener la imagen
+    public function getImage($fileName)
+    {
+        $file = Storage::disk('eventos')->get($fileName);
+        return new Response($file, 200);   
     }
 }

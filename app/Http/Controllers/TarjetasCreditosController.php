@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Compra;
+use App\Producto;
 
 class TarjetasCreditosController extends Controller
 {
@@ -11,6 +14,12 @@ class TarjetasCreditosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         //
@@ -23,7 +32,22 @@ class TarjetasCreditosController extends Controller
      */
     public function create()
     {
-        //
+        $usuario=Auth::user();
+        return view('producto.compra',compact("usuario"));
+    }
+
+     public function compra($id)
+    { 
+        $usuario = Auth::user();
+        $productos = Producto::findOrFail($id);
+        return view('producto.compra',compact("productos","usuario"));
+    }
+
+    public function mis_productos()
+    {
+        $usuario = Auth::user()->id;
+        $compras = Compra::where('user_id',$usuario)->get(); 
+        return view('producto.mis_productos',compact("compras"));
     }
 
     /**
@@ -34,7 +58,18 @@ class TarjetasCreditosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $usuario = Auth::user()->id;
+        $compra = Compra::create(
+                [
+                'producto_id' => $request->producto_id, 
+                'user_id' => $usuario,
+                'status' => $request->status,
+            ]
+                );
+       // $producto = Producto::where('id',$compra->producto_id)->decremets('stock',1);
+
+        $message = "Compra exitosa, numero de pedido ".$compra->id;
+        return redirect()->route('productos.index_usuario')->with('message',$message);
     }
 
     /**

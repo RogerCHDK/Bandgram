@@ -94,6 +94,18 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+        'productos' => [
+            'driver' => 'local',
+            'root' => storage_path('app/productos'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+        'eventos' => [
+            'driver' => 'local',
+            'root' => storage_path('app/eventos'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
 
     ],
 

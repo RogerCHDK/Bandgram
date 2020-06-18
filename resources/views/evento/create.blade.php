@@ -1,5 +1,7 @@
 @extends('template.master_artista')
 
+
+@section('contenido_central')  
 <script>
   function llenar_municipios(estado_id){
     $("#municipio_id").empty();
@@ -14,14 +16,13 @@
         var municipios = data;
 		for(var i = 0; i< municipios.length; i++){
 			$("#municipio_id").append('<option value="'+ municipios[i].id + '">'+ municipios[i].nombre
-				+ '</option>');
+				+ '</option>'); 
 		}
       }
     });
 
   }
 </script>
-@section('contenido_central')  
 
 		<div class="card shadow">
         <div class="card-header py-3">
@@ -79,4 +80,3 @@
 	
 	@endsection 
 
-	document.getElmentById('texto').value,document.getElmentById('id_persona').value

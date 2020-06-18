@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <a class="navbar-brand" href="{{route('inicio')}}">BANDGRAM</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -7,7 +7,7 @@
     <ul class="navbar-nav">
       <li class="nav-item dropdown active"> 
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Perfíl  
+          Perfíl   
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="{{route('usuario.index')}}">Mi perfil</a>
@@ -22,13 +22,20 @@
         </div> 
       </li>
       <li class="nav-item active">
+        <a class="nav-link" href="{{route('artista.index_usuario')}}">Artistas</a>  
+      </li>
+      <li class="nav-item active">
         <a class="nav-link" href="{{route('canciones.index_usuario')}}">Música</a>  
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="{{route('videos.index_usuario')}}">Videos</a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{{route('productos.index_usuario')}}">Productos</a>
+      <li class="nav-item dropdown active"> 
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Producos</a> 
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+         <a class="dropdown-item" href="{{route('productos.mine')}}">Mis Productos</a>
+          <a class="dropdown-item" href="{{route('productos.index_usuario')}}">Tienda</a>
+        </div>  
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="{{route('eventos.index_usuario')}}">Eventos</a> 

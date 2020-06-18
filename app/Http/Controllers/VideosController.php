@@ -18,8 +18,8 @@ class VideosController extends Controller
     public function __construct()
     {
         //$this->middleware('auth');
-        $this->middleware('artista',['except'=>['index_usuario','show']]); 
-        $this->middleware('auth:artista',['except'=>['index_usuario','show']]);
+        $this->middleware('artista',['except'=>['index_usuario','show','getVideo']]); 
+        $this->middleware('auth:artista',['except'=>['index_usuario','show','getVideo']]);
     }
     public function index()
     {

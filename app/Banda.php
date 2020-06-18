@@ -11,14 +11,19 @@ class Banda extends Model
         'nombre', 'biografia', 'foto','status','artista_id','genero_id',
     ]; 
 
-    public function artista()
-    {
+    public function artista() 
+    { 
         return $this->belongsTo('App\Artista');
     }
 
     public function genero()
     {
         return $this->belongsTo('App\Genero');
+    }
+
+     public function integrantes()
+    {
+        return $this->hasMany('App\Integrante');
     }
 
 }

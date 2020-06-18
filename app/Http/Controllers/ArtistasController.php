@@ -6,7 +6,16 @@ use Illuminate\Http\Request;
 use App\Artista;
 use Illuminate\Support\Facades\Auth;
 use App\Genero;
-
+use App\Cancion;
+use App\Video;
+use App\Evento;
+use App\Producto;
+use App\Boleto;
+use App\FotoEvento; 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File; 
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Http\Response; 
 
 class ArtistasController extends Controller
 {
@@ -18,9 +27,23 @@ class ArtistasController extends Controller
    
     
     public function index()  
-    {
+    { 
         $artista=Auth::user();
-        return view('artista.index',compact("artista"));
+        $canciones = Cancion::where('artista_id',$artista->id)->where('status',1)->get();
+        $videos = Video::where('artista_id',$artista->id)->where('status',1)->get();
+        $eventos = Evento::where('artista_id',$artista->id)->where('status',1)->get();
+        $productos = Producto::where('artista_id',$artista->id)->where('status',1)->get();
+        //$boletos = Boleto::where('artista_id',$artista->id)->where('status',1)->get(); 
+      
+        return view('artista.index')->with('artista',$artista)->with('canciones',$canciones)
+        ->with('videos',$videos)->with('eventos',$eventos)->with('productos',$productos);
+        //->with('boletos',$boletos);
+    }
+
+    public function index_usuario()  
+    { 
+        $artistas = Artista::all();
+        return view('artista.index_usuario',compact("artistas"));
     }
 
     /**
@@ -51,10 +74,18 @@ class ArtistasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id) 
     {
-        $artista = Artista::findOrFail($id);  
-        return view('artista.show',compact("artista"));
+        $artista = Artista::findOrFail($id); 
+        $canciones = Cancion::where('artista_id',$artista->id)->where('status',1)->get();
+        $videos = Video::where('artista_id',$artista->id)->where('status',1)->get();
+        $eventos = Evento::where('artista_id',$artista->id)->where('status',1)->get();
+        $productos = Producto::where('artista_id',$artista->id)->where('status',1)->get();
+        //$boletos = Boleto::where('artista_id',$artista->id)->where('status',1)->get(); 
+      
+        return view('artista.show')->with('artista',$artista)->with('canciones',$canciones)
+        ->with('videos',$videos)->with('eventos',$eventos)->with('productos',$productos); 
+        
     }
 
     /**
@@ -89,5 +120,12 @@ class ArtistasController extends Controller
     public function destroy($id)
     {
         //
+    } 
+
+
+    public function getImage($fileName)
+    {
+        $file = Storage::disk('artista')->get($fileName);
+        return new Response($file, 200);
     }
 }

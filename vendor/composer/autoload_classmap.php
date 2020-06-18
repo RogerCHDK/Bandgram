@@ -31,6 +31,7 @@ return array(
     'App\\Http\\Controllers\\CancionesController' => $baseDir . '/app/Http/Controllers/CancionesController.php',
     'App\\Http\\Controllers\\CategoriasController' => $baseDir . '/app/Http/Controllers/CategoriasController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
+    'App\\Http\\Controllers\\CorreoController' => $baseDir . '/app/Http/Controllers/CorreoController.php',
     'App\\Http\\Controllers\\EstadosController' => $baseDir . '/app/Http/Controllers/EstadosController.php',
     'App\\Http\\Controllers\\EventosController' => $baseDir . '/app/Http/Controllers/EventosController.php',
     'App\\Http\\Controllers\\FotosEventosController' => $baseDir . '/app/Http/Controllers/FotosEventosController.php',

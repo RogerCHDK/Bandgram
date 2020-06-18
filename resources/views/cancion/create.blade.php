@@ -26,6 +26,7 @@
 						<div class="form-group row">
 						{!!Form::label('foto', 'Sube una foto: ',['style'=>'font-size: 18px;color: rgb(0,0,0);']); !!} 
 						{!!Form::file('foto')!!}
+						</div>
 						<div class="form-group row">
 						{!!Form::label('genero_id', 'Género Musical: ',['style'=>'font-size: 18px;color: rgb(0,0,0);margin-right: 10px;max-width: 100%;min-width: 100%;']); !!} 
 						 {!!Form::select('genero_id', $genero->pluck('nombre','id'),null,['placeholder' => 'Genero','class'=>'form-control display-inline-block','style'=>'height: 50px;font-size: 18px;color: rgb(0,0,0);']) !!} 

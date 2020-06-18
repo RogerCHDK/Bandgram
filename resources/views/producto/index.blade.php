@@ -33,6 +33,7 @@
  		<td>{{$producto->stock}}</td>
  		<td>
  			<a href="{{route('productos.show',$producto->id)}}" class="btn btn-link"><span class="oi oi-eye"></span></a>
+            <a href="{{route('producto.imagen',$producto->id)}}" class="btn btn-link">Imagen</a>  
  			<a href="{{route('productos.edit',$producto->id)}}" class="btn btn-link"><span class="oi oi-pencil"></span></a>
  			{!!Form::open(['method' =>'DELETE', 'url' =>'productos/'.$producto->id]) !!}
  			{!!Form::submit('Eliminar',['class' => 'btn btn-primary']) !!}
