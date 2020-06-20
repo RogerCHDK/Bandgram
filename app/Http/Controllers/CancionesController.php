@@ -51,6 +51,14 @@ class CancionesController extends Controller
      */
     public function store(Request $request)
     { 
+         $validate = $this->validate($request, [
+            'nombre' => ['required','String', 'max:255'],
+            'ruta' => ['required'],
+            'album' => ['required','String', 'max:255'],
+            'foto' => ['required','mimes:jpeg,png'],
+            'genero_id' => ['required'],
+        ]);
+
         $imagen = $request->file('foto');  
         $cancion = $request->file('ruta');
         //$request->hasFile('foto')
@@ -124,6 +132,12 @@ class CancionesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validate = $this->validate($request, [
+            'nombre' => ['required','String', 'max:255'],
+            'album' => ['required','String', 'max:255'],
+            'foto' => ['mimes:jpeg,png'],
+            'genero_id' => ['required'], 
+        ]);
         $imagen = $request->file('foto');  
         $ruta = $request->file('ruta');
         $cancion = Cancion::findOrFail($id); 

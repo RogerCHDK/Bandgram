@@ -25,4 +25,9 @@ class Producto extends Model
     {
         return $this->hasMany('App\FotoProducto'); 
     }
+
+    public function compra()
+    {
+        return $this->hasMany('App\Compra'); 
+    }
 }

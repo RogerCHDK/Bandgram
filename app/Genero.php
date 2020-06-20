@@ -13,7 +13,7 @@ class Genero extends Model
 
     public function canciones()
     {
-        return $this->hasMany('App\Cancion');
+        return $this->hasMany('App\Cancion'); 
     }
  
 }

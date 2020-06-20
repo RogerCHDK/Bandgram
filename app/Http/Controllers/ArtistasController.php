@@ -7,7 +7,7 @@ use App\Artista;
 use Illuminate\Support\Facades\Auth;
 use App\Genero;
 use App\Cancion;
-use App\Video;
+use App\Video; 
 use App\Evento;
 use App\Producto;
 use App\Boleto;

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function () { 
     return view('bienvenida');  
 })->name('inicio'); 
 
@@ -31,6 +31,7 @@ Route::resource('bandas','BandasController');
 Route::resource('integrantes','IntegrantesController'); 
 Route::resource('tarjetas','TarjetasCreditosController'); 
 
+//Index de usuarios
 Route::get('/index_cancion', 'CancionesController@index_usuario')->name('canciones.index_usuario');
 Route::get('/index_video', 'VideosController@index_usuario')->name('videos.index_usuario');
 Route::get('/index_producto', 'ProductosController@index_usuario')->name('productos.index_usuario');
@@ -39,6 +40,7 @@ Route::get('/index_boleto', 'BoletosController@index_usuario')->name('boletos.in
 Route::get('/index_banda', 'BandasController@index_usuario')->name('bandas.index_usuario');
 Route::get('/index_artista', 'ArtistasController@index_usuario')->name('artista.index_usuario');
  
+ //Archivos
 Route::get('cancion-imagen/{filename}', 'CancionesController@getImage')->name('cancion.imagen');
 Route::get('cancion-audio/{filename}', 'CancionesController@getMusic')->name('cancion.audio');
 Route::get('video-media/{filename}', 'VideosController@getVideo')->name('video.media');
@@ -78,10 +80,19 @@ Route::group(['middleware'=>'artista'], function(){
 	});
 
 //Graficas
-
 Route::get('graficas-usuario/', 'GraficasController@index')->name('graficas.index');
+Route::get('graficas-boletos/', 'GraficasController@grafica_boletos')->name('graficas.boletos');
+Route::get('graficas-productos/', 'GraficasController@grafica_productos')->name('graficas.productos');
+Route::get('graficas-eventos/', 'GraficasController@grafica_eventos')->name('graficas.eventos'); 
+
+//Reportes 
 Route::get('reportes/', 'PdfController@genera_pdf')->name('reportes');
-Route::get('reporte-cancion/{tipo}', 'PdfController@crear_reporte_canciones')->name('reporte.cancion');
+Route::get('reporte-evento/{tipo}', 'PdfController@crear_reporte_eventos')->name('reporte.eventos'); 
+Route::get('reporte-producto/{tipo}', 'PdfController@crear_reporte_productos')->name('reporte.productos');
+Route::get('reporte-boleto/{tipo}', 'PdfController@crear_reporte_boletos')->name('reporte.boletos');
+
+
+//Correo
 Route::get('form_enviar_correo', 'CorreoController@create')->name('correo.create');
 Route::post('enviar_correo', 'CorreoController@enviar')->name('correo.enviar');
 
@@ -93,6 +104,22 @@ Route::post('imagen-producto', 'ProductosController@crear_imagen')->name('produc
 Route::get('formulario-imagen-evento/{id}', 'EventosController@imagen')->name('evento.imagen');  
 Route::post('imagen-evento', 'EventosController@crear_imagen')->name('evento.crearImagen'); 
 
+//Compras de productos
 Route::get('compra-producto/{id}', 'TarjetasCreditosController@compra')->name('compra.producto');  
-Route::get('mis-productos', 'TarjetasCreditosController@mis_productos')->name('productos.mine');  
+Route::get('mis-productos', 'TarjetasCreditosController@mis_productos')->name('productos.mine'); 
 
+//Compra de boletos 
+Route::get('compra-boleto/{id}', 'TarjetasCreditosController@compra_boleto')->name('compra.boleto'); 
+Route::post('pago-boleto', 'TarjetasCreditosController@pago_boleto')->name('boleto.pago'); 
+Route::get('mis-boletos', 'TarjetasCreditosController@mis_boletos')->name('boletos.mine');  
+
+//Asistir a eventos
+Route::post('asistir-evento', 'EventosController@asistir')->name('evento.asistir');  
+Route::get('mis-eventos', 'EventosController@mis_eventos')->name('eventos.mine');   
+
+//Shows de usuarios
+Route::get('show-video/{id}', 'VideosController@show_usuario')->name('video.usuario'); 
+Route::get('show-producto/{id}', 'ProductosController@show_usuario')->name('producto.usuario'); 
+Route::get('show-evento/{id}', 'EventosController@show_usuario')->name('evento.usuario');  
+Route::get('show-boleto/{id}', 'BoletosController@show_usuario')->name('boleto.usuario');
+Route::get('show-banda/{id}', 'BandasController@show_usuario')->name('banda.usuario');   

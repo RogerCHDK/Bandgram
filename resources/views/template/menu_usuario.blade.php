@@ -18,7 +18,7 @@
           {{ __('Cerrar Sesion') }} </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
           @csrf
-          </form> 
+          </form>  
         </div> 
       </li>
       <li class="nav-item active">
@@ -37,11 +37,19 @@
           <a class="dropdown-item" href="{{route('productos.index_usuario')}}">Tienda</a>
         </div>  
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{{route('eventos.index_usuario')}}">Eventos</a> 
+      <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Eventos</a> 
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="{{route('eventos.mine')}}">Mis Eventos</a>
+        <a class="dropdown-item" href="{{route('eventos.index_usuario')}}">Eventos</a> 
+        </div> 
       </li>
-      <li class="nav-item active"> 
-        <a class="nav-link" href="{{route('boletos.index_usuario')}}">Boletos</a>
+      <li class="nav-item dropdown active"> 
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Boletos</a> 
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="{{route('boletos.mine')}}">Mis Boletos</a>
+        <a class="dropdown-item" href="{{route('boletos.index_usuario')}}">Boletos</a>
+        </div>  
       </li>
       <li class="nav-item active"> 
         <a class="nav-link" href="{{route('bandas.index_usuario')}}">Bandas</a> 

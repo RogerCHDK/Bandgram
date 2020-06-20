@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Compra;
 use App\Producto;
+use App\Boleto;
+use App\CompraBoleto;
+use App\Http\Requests; 
+use App\Http\Controllers\Controller;
 
 class TarjetasCreditosController extends Controller
 {
@@ -20,7 +24,7 @@ class TarjetasCreditosController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index() 
     {
         //
     }
@@ -37,7 +41,7 @@ class TarjetasCreditosController extends Controller
     }
 
      public function compra($id)
-    { 
+    {  
         $usuario = Auth::user();
         $productos = Producto::findOrFail($id);
         return view('producto.compra',compact("productos","usuario"));
@@ -48,6 +52,36 @@ class TarjetasCreditosController extends Controller
         $usuario = Auth::user()->id;
         $compras = Compra::where('user_id',$usuario)->get(); 
         return view('producto.mis_productos',compact("compras"));
+    }
+
+     public function compra_boleto($id)
+    {  
+        $usuario = Auth::user();
+        $boletos = Boleto::findOrFail($id);
+        return view('boleto.compra',compact("boletos","usuario"));
+    } 
+
+     public function pago_boleto(Request $request)
+    {  
+        $usuario = Auth::user()->id; 
+         $compra = CompraBoleto::create(
+                [
+                'boleto_id' => $request->boleto_id, 
+                'user_id' => $usuario, 
+                'status' => $request->status,
+            ]
+                ); 
+       $producto = Boleto::where('id',$compra->boleto_id)->decrement('stock',1);
+
+        $message = "Compra exitosa, numero de pedido ".$compra->id; 
+        return redirect()->route('boletos.index_usuario')->with('message',$message); 
+    } 
+
+     public function mis_boletos()
+     {
+        $usuario = Auth::user()->id;
+        $compras = CompraBoleto::where('user_id',$usuario)->get();  
+        return view('boleto.mis_boletos',compact("compras")); 
     }
 
     /**
@@ -66,7 +100,7 @@ class TarjetasCreditosController extends Controller
                 'status' => $request->status,
             ]
                 );
-       // $producto = Producto::where('id',$compra->producto_id)->decremets('stock',1);
+       $producto = Producto::where('id',$compra->producto_id)->decrement('stock',1);
 
         $message = "Compra exitosa, numero de pedido ".$compra->id;
         return redirect()->route('productos.index_usuario')->with('message',$message);

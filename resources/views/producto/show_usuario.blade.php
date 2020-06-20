@@ -1,12 +1,12 @@
-@extends('template.master_artista')
+ @extends('template.master_usuario')
  
 @section('contenido_central') 
 
 
-<div class="card shadow">
+<div class="card shadow"> 
         <div class="card-header py-3">
             <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">{{$productos->nombre}}</p> 
-        </div>  
+        </div> 
 
 		<div class="card-body"> 
             <div class="row">
@@ -86,6 +86,7 @@
                             <div class="text-center">
                                 <span style="color: rgb(0,0,0);font-size: 18px;">Producto de&nbsp;<a class="event_title" href="view-profile.html" style="font-size: 20px;">{{$productos->artista->nombre}}</a></span>  
                             </div>
+                            <a class="btn btn-primary" style="width: 250px; height: 45px;" href="{{route('compra.producto',$productos->id)}}">Comprar</a> 
                         </div>
                     </div>
                 </div>

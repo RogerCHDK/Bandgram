@@ -7,11 +7,11 @@
 	<div class="card-header py-3">
             <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">Bienvenido {{$artista->nombre}} {{$artista->ap_paterno}} {{$artista->ap_materno}}</p> 
         </div> 
-        <div class="card-body">  
+        <div class="card-body">   
         	<div class="row"> 
                 <div class="col-lg-6" style="min-width: 100%;">
                     <div class="p-5">
-                        <div class="text-center">
+                        <div class="text-center"> 
                             
 
 

@@ -1,4 +1,4 @@
-@extends('template.master_artista')
+@extends('template.master_usuario')
 @section('contenido_central') 
 <div class="card shadow">
         <div class="card-header py-3">

@@ -1,4 +1,4 @@
-@extends('template.master_artista')
+@extends('template.master_usuario')
  
 @section('contenido_central') 
 
@@ -7,7 +7,7 @@
             <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">{{$boletos->evento->nombre_locacion}}</p> 
         </div> 
 
-		<div class="card-body"> 
+		<div class="card-body">  
             <div class="row">
                 <div class="col-lg-6 d-flex d-sm-flex d-md-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-xl-center" style="min-width: 100%;">
                    <div id="carouselExampleControls{{$boletos->evento->id}}b" class="carousel slide" data-ride="carousel">
@@ -32,7 +32,7 @@
                                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                                 <span class="sr-only">Next</span>
                                               </a>
-                                        </div>
+                                        </div> 
                 </div> 
             </div>
 
@@ -63,6 +63,7 @@
                             <div class="text-center">
                                 <span style="color: rgb(0,0,0);font-size: 18px;">Evento de&nbsp;<a class="event_title" href="{{route('artista.show',$boletos->evento->artista->id)}}" style="font-size: 20px;">{{$boletos->evento->artista->nombre}}</a></span>
                             </div> 
+                            <a class="btn btn-primary" style="width: 250px; height: 45px;" href="{{route('compra.boleto',$boletos->id)}}">Comprar</a> 
                         </div>
                     </div>
                 </div>

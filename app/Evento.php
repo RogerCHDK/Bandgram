@@ -36,4 +36,9 @@ class Evento extends Model
     { 
         return $this->hasMany('App\Boleto');
     }
+
+    public function asistencia()
+    { 
+        return $this->hasMany('App\Asistencia');
+    }
 }

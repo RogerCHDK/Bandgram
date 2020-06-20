@@ -51,7 +51,7 @@
                                         </div>
                                         <div class="card-body text-center">
                                             <h6>
-                                                <a class="event_title" href="{{ route('productos.show',$producto->id) }}" style="font-size: 22px;">{{$producto->nombre}}</a>
+                                                <a class="event_title" href="{{ route('producto.usuario',$producto->id) }}" style="font-size: 22px;">{{$producto->nombre}}</a>
                                             </h6> 
                                         </div>
                                         

@@ -508,6 +508,7 @@ class ComposerStaticInitafc19fe4f45a38a3170ce03d1ff45876
         'App\\Boleto' => __DIR__ . '/../..' . '/app/Boleto.php',
         'App\\Cancion' => __DIR__ . '/../..' . '/app/Cancion.php',
         'App\\Categoria' => __DIR__ . '/../..' . '/app/Categoria.php',
+        'App\\Compra' => __DIR__ . '/../..' . '/app/Compra.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Estado' => __DIR__ . '/../..' . '/app/Estado.php',
         'App\\Evento' => __DIR__ . '/../..' . '/app/Evento.php',

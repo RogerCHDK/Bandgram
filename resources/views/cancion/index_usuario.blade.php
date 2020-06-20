@@ -38,18 +38,20 @@
                             <h1 class="mb-4" style="font-size: 30px;color: rgb(38,125,36);">{{$genero->nombre}}</h1>
                         </div> 
                         <div class="row" id="canciones_contenido">
-                        @foreach($canciones as $cancion)
+                        @foreach($canciones as $cancion) 
                          @if($genero->id == $cancion->genero_id)
                         
                             <div class="col-md-6 col-lg-4">
                                 <div class="card border-0">
-                                    <a href="{{route('canciones.show',$cancion->id)}}">
-                                        <div class="marco zoom-on-hover">
-                                        	<div class="text-center">
-                                            <img class="img-fluid image" src="{{route('cancion.imagen',$cancion->foto)}}">
+                                    <a href="{{ route('canciones.show',$cancion->id) }}">
+                                            <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center marco zoom-on-hover">
+                                                <img class="img-fluid image" src="{{route('cancion.imagen',$cancion->foto)}}" style="min-width: 40%;max-height: 576px;">
+
                                             </div> 
+                                            <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center marco zoom-on-hover">
+                                            <audio src="{{route('cancion.audio',$cancion->ruta)}}" controls autoplay loop>
                                         </div>
-                                    </a>
+
                                     <div class="card-body text-center">
                                         <h6>
                                             <a class="event_title" href="{{route('canciones.show',$cancion->id)}}" style="font-size: 22px;">{{$cancion->nombre}}<br></a>

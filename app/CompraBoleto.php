@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Compra extends Model
+class CompraBoleto extends Model
 {
-    protected $table= 'compra';
+    protected $table= 'compra_boletos';
     protected $fillable = [
-        'producto_id', 'user_id','status',
+        'boleto_id', 'user_id','status',
     ]; 
 
     public function usuario()
@@ -16,8 +16,8 @@ class Compra extends Model
         return $this->belongsTo('App\User','user_id','id'); 
     } 
 
-    public function producto() 
+    public function boleto() 
     {
-        return $this->belongsTo('App\Producto','producto_id','id');
+        return $this->belongsTo('App\Boleto','boleto_id','id');
     }
 }

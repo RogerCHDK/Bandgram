@@ -7,28 +7,28 @@ use Illuminate\Support\Facades\Auth;
 use App\Genero;
 use App\Banda;
 use App\Integrante;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Storage; 
 use Illuminate\Support\Facades\File; 
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Http\Response; 
 
 class BandasController extends Controller    
-{
+{ 
     /** 
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-     public function __construct()
+     public function __construct() 
     {
         //$this->middleware('auth'); 
-        $this->middleware('artista',['except'=>['index_usuario','show']]); 
-        $this->middleware('auth:artista',['except'=>['index_usuario','show']]);
+        $this->middleware('artista',['except'=>['index_usuario','show','getImage','show_usuario']]); 
+        $this->middleware('auth:artista',['except'=>['index_usuario','show','getImage','show_usuario']]);
     }
 
     public function index() 
     {
-        $artista=Auth::user()->id;
+        $artista=Auth::user()->id; 
         $bandas = Banda::where('status',1)->get();
         return view('banda.index')->with('bandas',$bandas)->with('artista',$artista); 
     }
@@ -38,7 +38,7 @@ class BandasController extends Controller
         $artista=Auth::user()->id;
         //$bandas=Banda::where('artista_id',$artista)->where('status',1)->orderBy('nombre')->get();
         $integrantes = Integrante::where('artista_id',$artista)->get();
-        return view('banda.mis_bandas')->with('integrantes',$integrantes);  
+        return view('banda.mis_bandas')->with('integrantes',$integrantes)->with('artista',$artista);  
     }
 
     /**
@@ -61,6 +61,12 @@ class BandasController extends Controller
      */ 
     public function store(Request $request)
     {
+        $validate = $this->validate($request, [
+            'nombre' => ['required','String', 'max:255'],
+            'biografia' => ['required','String'],
+            'foto' => ['required','mimes:jpeg,png'],
+            'genero_id' => ['required'],
+        ]);
         $imagen = $request->file('foto');  
         if ($imagen) {
             //ponerle un nombre unico
@@ -106,9 +112,17 @@ class BandasController extends Controller
      */
     public function show($id)
     {
+        
         $bandas = Banda::findOrFail($id);
         $integrantes = Integrante::where('banda_id',$id)->get();
         return view('banda.show',compact("bandas","integrantes"));
+    }
+
+    public function show_usuario($id)
+    {
+        $bandas = Banda::findOrFail($id);
+        $integrantes = Integrante::where('banda_id',$id)->get();
+        return view('banda.show_usuario',compact("bandas","integrantes"));
     }
 
     /**

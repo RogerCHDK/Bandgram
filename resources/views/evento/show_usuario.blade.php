@@ -1,4 +1,4 @@
-@extends('template.master_artista')
+@extends('template.master_usuario')
  
 @section('contenido_central') 
 
@@ -16,7 +16,7 @@
                   <div class="carousel-inner"> 
 
                     @foreach($fotos as $foto)
-                    @if($loop->first) 
+                    @if($loop->first)  
                     <div class="carousel-item active">
                       <img class="d-block w-100" src="{{route('eventos.imagen',$foto->foto)}}" alt="" style="min-width: 40%;max-height: 576px;">
                     </div>
@@ -126,22 +126,16 @@
                             <div class="text-center">
                                 <span style="color: rgb(0,0,0);font-size: 18px;">Evento de&nbsp;<a class="event_title" href="view-profile.html" style="font-size: 20px;">{{$eventos->artista->nombre}}</a></span>
                             </div>
+                            {!!Form::open(['method' =>'POST', 'url' =>'asistir-evento']) !!}
+                            {!!Form::hidden('evento_id',$eventos->id); !!} 
+                            {!!Form::hidden('status', 1); !!}
+                            {!!Form::submit('Asistir',['class' => 'btn btn-primary']) !!}
+                            {!! Form::close() !!}
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
      </div>
-
-
-
-
- <div class="row">
-	<div class="col">	
-	<label> Municipio :</label>
-	<label>{{$eventos->municipio->nombre}}</label>
-	 </div>
- </div>
-
 
 @endsection 

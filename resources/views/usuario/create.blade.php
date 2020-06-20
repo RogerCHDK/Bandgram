@@ -12,7 +12,7 @@
 	<div class="card-body">  
             <div class="row d-md-flex d-lg-flex d-xl-flex justify-content-md-center justify-content-lg-center justify-content-xl-center mb-3">
                 <div class="col-lg-7">
-                    <div class="p-5">
+                    <div class="p-5"> 
 
 							{!! Form::open(['url' => 'register','files' => true]) !!}
 

@@ -1,4 +1,4 @@
- @extends('template.master_usuario')
+ @extends('template.master_artista')
 
  @section('contenido_central') 
 
@@ -9,9 +9,11 @@
 
 <?php
 $campos = "";  
-foreach ($generos as $genero) {
-	$total = $genero->canciones->count(); 
-	$campos = $campos . "[ '".$genero->nombre."',".$total."],";
+foreach ($boletos as $boleto) {
+	if ($boleto->evento->artista_id == $artista) {
+		$total = $boleto->compra->count(); 
+	$campos = $campos . "[ '".$boleto->evento->nombre_locacion."',".$total."],";
+	}
 }
 ?> 
 
@@ -23,10 +25,10 @@ Highcharts.chart('container', {
         type: 'column'
     },
     title: {
-        text: 'Canciones'
+        text: 'Boletos'
     },
     subtitle: {
-        text: 'Recopiladas por genero'
+        text: 'Vendidos'
     },
     xAxis: {
         type: 'category',
@@ -41,7 +43,7 @@ Highcharts.chart('container', {
     yAxis: {
         min: 0,
         title: {
-            text: 'Numero de canciones'
+            text: 'Numero de boletos vendidos'
         }
     },
     legend: {

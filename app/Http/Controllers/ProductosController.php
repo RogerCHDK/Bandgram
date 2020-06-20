@@ -21,11 +21,11 @@ class ProductosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function __construct()
+     public function __construct() 
     {
         //$this->middleware('auth');
-        $this->middleware('artista',['except'=>['index_usuario','show','getImage']]); 
-        $this->middleware('auth:artista',['except'=>['index_usuario','show','getImage']]);
+        $this->middleware('artista',['except'=>['index_usuario','show','getImage','show_usuario']]); 
+        $this->middleware('auth:artista',['except'=>['index_usuario','show','getImage','show_usuario']]);
     }
 
     public function index() 
@@ -55,7 +55,13 @@ class ProductosController extends Controller
      */
     public function store(Request $request) 
     {
-
+        $validate = $this->validate($request, [
+            'nombre' => ['required','String', 'max:255'],
+            'precio' => ['required','numeric','min:0'],
+            'descripcion' => ['required','String'], 
+            'categoria_id' => ['required'],
+            'stock' => ['required','numeric','min:0'],
+        ]);
         $producto=Producto::create($request->all()); 
         $message = "Producto ". $producto->nombre ." creado correctamente";
         return redirect()->route('productos.index')->with('message',$message);
@@ -72,7 +78,15 @@ class ProductosController extends Controller
         $productos = Producto::findOrFail($id);
         $fotos = FotoProducto::where('producto_id',$id)->get();
         $bandera = true;
-        return view('producto.show')->with('productos',$productos)->with('fotos',$fotos)->with('bandera',$bandera);
+        return view('producto.show')->with('productos',$productos)->with('fotos',$fotos)->with('bandera',$bandera); 
+    }
+
+    public function show_usuario($id)
+    {
+        $productos = Producto::findOrFail($id);
+        $fotos = FotoProducto::where('producto_id',$id)->get();
+        $bandera = true;
+        return view('producto.show_usuario')->with('productos',$productos)->with('fotos',$fotos)->with('bandera',$bandera); 
     }
 
     /**

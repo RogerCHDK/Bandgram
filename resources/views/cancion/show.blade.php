@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-lg-6 d-flex d-sm-flex d-md-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-xl-center" style="min-width: 100%;">
                     <img class="img-fluid" src="{{route('cancion.imagen',$canciones->foto)}}" style="min-width: 40%;max-height: 576px;">
-                </div>
+                </div> 
             </div>
 
 			<div class="row">

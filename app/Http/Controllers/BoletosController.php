@@ -14,20 +14,20 @@ class BoletosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function __construct()
+     public function __construct() 
     {
         //$this->middleware('auth');
-        $this->middleware('artista',['except'=>['index_usuario','show']]); 
-       $this->middleware('auth:artista',['except'=>['index_usuario','show']]);
+        $this->middleware('artista',['except'=>['index_usuario','show','show_usuario']]); 
+       $this->middleware('auth:artista',['except'=>['index_usuario','show','show_usuario']]);
     }
 
     public function index()
     { 
         $artista=Auth::user()->id;
-        /*$evento=Evento::where('artista_id',$artista)->get();
-        $boletos=Boleto::where('artista_id',$artista)->where('status',1)->orderBy('nombre')->get();*/
-        $boletos=Boleto::where('status',1)->get();
-        return view('boleto.index')->with('boletos',$boletos);  
+        $evento=Evento::where('artista_id',$artista)->get();
+        //$boletos=Boleto::where('artista_id',$artista)->where('status',1)->orderBy('nombre')->get();
+        //$boletos=Boleto::where('status',1)->get();
+        return view('boleto.index')->with('eventos',$evento);  
     }
 
     /**
@@ -50,6 +50,11 @@ class BoletosController extends Controller
      */
     public function store(Request $request)
     {
+         $validate = $this->validate($request, [
+            'precio' => ['required','numeric', 'min:0'],
+            'stock' => ['required','numeric', 'min:0'],
+            'evento_id' => ['required'],
+        ]);
         $boleto=Boleto::create($request->all());
         return redirect()->route('boletos.index');
     }
@@ -64,6 +69,12 @@ class BoletosController extends Controller
     {
         $boletos = Boleto::findOrFail($id);
         return view('boleto.show',compact("boletos")); 
+    }
+
+    public function show_usuario($id) 
+    {
+        $boletos = Boleto::findOrFail($id);
+        return view('boleto.show_usuario',compact("boletos")); 
     }
 
     /**
@@ -112,7 +123,7 @@ class BoletosController extends Controller
 
     public function index_usuario()
     {
-        $boletos = Boleto::all();
+        $boletos = Boleto::where('status',1)->get();
         return view('boleto.index_usuario',compact("boletos"));
     }
 }

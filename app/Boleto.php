@@ -15,4 +15,9 @@ class Boleto extends Model
     {
         return $this->belongsTo('App\Evento'); 
     }
+
+    public function compra()
+    {
+        return $this->hasMany('App\CompraBoleto'); 
+    }
 }

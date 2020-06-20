@@ -10,22 +10,42 @@
                 <div class="col-lg-7">
                     <div class="p-5"> 
 						{!! Form::open(['url' => 'bandas','files' => true]) !!} 
-						@csrf 
+						@csrf  
 						<div class="form-group row">
 						{!!Form::label('nombre', 'Nombre de la banda: ',['style'=>'font-size: 18px;color: rgb(0,0,0);']); !!} 
-					    {!!Form::text('nombre', null,['placeholder'=>'Ingresa el nombre de la banda','class' => 'form-control form-control-user','type'=>'text','style'=>'font-size: 18px;color: rgb(0,0,0);']); !!} 
+					    {!!Form::text('nombre', null,['placeholder'=>'Ingresa el nombre de la banda','class' => 'form-control form-control-user'.($errors->has('nombre') ? ' is-invalid' : ''),'type'=>'text','style'=>'font-size: 18px;color: rgb(0,0,0);']); !!} 
+					    @error('nombre')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>  
+                                        </span>
+                            @enderror
 						</div>
 						<div class="form-group row">
 						{!!Form::label('biografia', 'Biografía: ',['style'=>'font-size: 18px;color: rgb(0,0,0);']); !!} 
-					    {!!Form::textarea('biografia', null,['placeholder'=>'Ingresa la biografía','class'=>'form-control form-control-user','style'=>'font-size: 18px;color: rgb(0,0,0);height: 160px;']); !!}  
+					    {!!Form::textarea('biografia', null,['placeholder'=>'Ingresa la biografía','class'=>'form-control form-control-user'.($errors->has('nombre') ? ' is-invalid' : ''),'style'=>'font-size: 18px;color: rgb(0,0,0);height: 160px;']); !!}  
+					    @error('biografia')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>  
+                                        </span>
+                            @enderror
 						</div>
 						<div class="form-group row">
 						{!!Form::label('foto', 'Selecciona una foto: ',['style'=>'font-size: 18px;color: rgb(0,0,0);']); !!} 
-						{!!Form::file('foto')!!}
+						{!!Form::file('foto',['class'=>''.($errors->has('foto') ? ' is-invalid' : '')])!!}
+						@error('foto')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>  
+                                        </span>
+                            @enderror
 						</div> 
 						<div class="form-group row">
 						{!!Form::label('genero_id', 'Género Musical: ',['style'=>'font-size: 18px;color: rgb(0,0,0);margin-right: 10px;max-width: 100%;min-width: 100%;']); !!} 
-						 {!!Form::select('genero_id', $genero->pluck('nombre','id'),null,['placeholder' => 'Genero' ,'class'=>'form-control display-inline-block','style'=>'height: 50px;font-size: 18px;color: rgb(0,0,0);']) !!} 
+						 {!!Form::select('genero_id', $genero->pluck('nombre','id'),null,['placeholder' => 'Genero' ,'class'=>'form-control display-inline-block'.($errors->has('nombre') ? ' is-invalid' : ''),'style'=>'height: 50px;font-size: 18px;color: rgb(0,0,0);']) !!} 
+						 @error('genero_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>  
+                                        </span>
+                            @enderror
 						 </div> 
 						 {!!Form::hidden('artista_id',$artista); !!} 
 						{!!Form::hidden('status', 1); !!}

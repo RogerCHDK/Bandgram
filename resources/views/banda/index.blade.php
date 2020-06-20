@@ -8,12 +8,12 @@
     @endif     
   <div class="tab-content"> 
                         <div class="card shadow"> 
-                            <div class="card-body"> 
+                             <div class="card-body"> 
                                 <div class="card-header py-3">
                                     <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">Bandas</p> 
                                 </div> 
                             <div class="row">
-                                @foreach($bandas as $banda)
+                                @foreach($bandas as $banda) 
                                 @if($artista != $banda->artista_id)
                                 <div class="col-md-6 col-lg-4">
                                     <div class="card border-0">

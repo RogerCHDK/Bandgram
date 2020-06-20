@@ -15,11 +15,11 @@ class VideosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
+    public function __construct() 
+    { 
         //$this->middleware('auth');
-        $this->middleware('artista',['except'=>['index_usuario','show','getVideo']]); 
-        $this->middleware('auth:artista',['except'=>['index_usuario','show','getVideo']]);
+        $this->middleware('artista',['except'=>['index_usuario','show','getVideo','show_usuario']]); 
+        $this->middleware('auth:artista',['except'=>['index_usuario','show','getVideo','show_usuario']]);
     }
     public function index()
     {
@@ -47,6 +47,11 @@ class VideosController extends Controller
      */
     public function store(Request $request) 
     {
+        $validate = $this->validate($request, [
+            'nombre' => ['required','String', 'max:255'],
+            'ruta' => ['required','mimetypes:video/avi,video/mp4'],
+        ]);
+
         if ($request->hasFile('ruta')) {
            $video = $request->file('ruta');
            $video_nombre = time().'_'.$video->getClientOriginalName();
@@ -79,6 +84,14 @@ class VideosController extends Controller
         return view('video.show',compact("videos"));
     }
 
+    public function show_usuario($id)  
+    {
+        $videos = Video::findOrFail($id);
+        return view('video.show_usuario',compact("videos"));
+    }
+
+
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -94,12 +107,16 @@ class VideosController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $request 
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
+        $validate = $this->validate($request, [
+            'nombre' => ['required','String', 'max:255'],
+            'ruta' => ['mimetypes:video/avi,video/mp4'],
+        ]);
         $video = Video::findOrFail($id); 
         $video->nombre = $request->nombre;
         
@@ -132,13 +149,13 @@ class VideosController extends Controller
 
      public function index_usuario()
     {
-        $videos = Video::all();
+        $videos = Video::where('status',1)->get();
         return view('video.index_usuario',compact("videos")); 
     }
      //Obtener video
     public function getVideo($fileName)
     {
         $file = Storage::disk('videos')->get($fileName);
-        return $file;
+        return $file; 
     }
 }

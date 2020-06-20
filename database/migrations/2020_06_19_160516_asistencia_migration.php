@@ -4,18 +4,18 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CompraMigration extends Migration
+class AsistenciaMigration extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up() 
+    public function up()
     {
-        Schema::create('compra', function (Blueprint $table) {
+        Schema::create('asistencia', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('producto_id')->constrained(); 
+            $table->foreignId('evento_id')->constrained(); 
             $table->foreignId('user_id')->constrained(); 
             $table->integer('status');
             $table->timestamps();
@@ -29,6 +29,6 @@ class CompraMigration extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('compra');
+        Schema::dropIfExists('asistencia');
     }
 }

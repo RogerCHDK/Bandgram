@@ -11,6 +11,7 @@ return array(
     'App\\Boleto' => $baseDir . '/app/Boleto.php',
     'App\\Cancion' => $baseDir . '/app/Cancion.php',
     'App\\Categoria' => $baseDir . '/app/Categoria.php',
+    'App\\Compra' => $baseDir . '/app/Compra.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Estado' => $baseDir . '/app/Estado.php',
     'App\\Evento' => $baseDir . '/app/Evento.php',
