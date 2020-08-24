@@ -88,7 +88,7 @@ Route::get('graficas-eventos/', 'GraficasController@grafica_eventos')->name('gra
 //Reportes 
 Route::get('reportes/', 'PdfController@genera_pdf')->name('reportes');
 Route::get('reporte-evento/{tipo}', 'PdfController@crear_reporte_eventos')->name('reporte.eventos'); 
-Route::get('reporte-producto/{tipo}', 'PdfController@crear_reporte_productos')->name('reporte.productos');
+Route::get('reporte-producto/{tipo}', 'PdfController@crear_reporte_productos')->name('reporte.productos'); 
 Route::get('reporte-boleto/{tipo}', 'PdfController@crear_reporte_boletos')->name('reporte.boletos');
 
 
