@@ -49,7 +49,7 @@ class ProductosController extends Controller
     public function store(Request $request)
     {
         $producto=Producto::create($request->all());
-        return redirect()->route('productos.index');
+        return redirect()->route('productos.index')->with(['message' => 'Producto creado correctamente']); ;
     }
 
     /**
