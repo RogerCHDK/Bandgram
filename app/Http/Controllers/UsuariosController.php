@@ -5,19 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; 
 use App\User;
+use App\Estado; 
+use App\Municipio; 
 
 class UsuariosController extends Controller
 { 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+     public function __construct() 
+    {
+        $this->middleware('auth',['except'=>['create']]);   
+    }
     public function index()
     {
         
         $usuario = Auth::user();
-        
         return view('usuario.index',compact("usuario"));
     }
 
@@ -28,7 +28,9 @@ class UsuariosController extends Controller
      */
     public function create()
     {
-        return view('usuario.create');
+        $estado = Estado::all();
+        $municipio = Municipio::all();
+        return view('usuario.create')->with('estado',$estado)->with('municipio',$municipio);
     }
 
     /**

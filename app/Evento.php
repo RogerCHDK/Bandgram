@@ -14,7 +14,7 @@ class Evento extends Model
 
     public function artista()
     {
-        return $this->belongsTo('App\Artista');
+        return $this->belongsTo('App\Artista'); 
     }
 
     public function estado()
@@ -25,5 +25,20 @@ class Evento extends Model
     public function municipio()
     {
         return $this->belongsTo('App\Municipio');
+    } 
+
+    public function fotos()
+    { 
+        return $this->hasMany('App\FotoEvento');
+    }
+
+    public function boletos()
+    { 
+        return $this->hasMany('App\Boleto');
+    }
+
+    public function asistencia()
+    { 
+        return $this->hasMany('App\Asistencia');
     }
 }

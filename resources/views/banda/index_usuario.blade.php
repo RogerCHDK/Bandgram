@@ -1,37 +1,34 @@
 @extends('template.master_usuario')
 
 @section('contenido_central')     
- <br/><br/><br/><br/>
- @if($bandas->isNotEmpty())
+  <div class="tab-content"> 
+                        <div class="card shadow"> 
+                             <div class="card-body"> 
+                                <div class="card-header py-3">
+                                    <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">Bandas</p> 
+                                </div> 
+                            <div class="row">
+                                @foreach($bandas as $banda)
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="card border-0">
+                                        <a href="{{ route('banda.usuario',$banda->id) }}">
+                                            <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center marco zoom-on-hover">
+                                                <img class="img-fluid image" src="{{route('banda.imagen',$banda->foto)}}" style="min-width: 40%;max-height: 576px;"> 
 
- <table class="table">
- 	<thead class="thead-dark">
- 	<tr>
- 	<th>Nombre</th>
-    <th>Biografía </th>
-    <th>Foto </th> 
-    <th>Genero </th>
-    <th>Creador </th>
-    <th>Ver </th>
- 	</tr>
- 	 </thead>
- 	 <tbody>
- 	@foreach($bandas as $banda)
- 	<tr>
- 		<td>{{$banda->nombre}}</td>
- 		<td>{{$banda->biografia}}</td>
- 		<td>{{$banda->foto}}</td>
- 		<td>{{$banda->genero->nombre}}</td>
- 		<td>{{$banda->artista->nombre}}</td>
- 		<td>
- 			<a href="{{route('bandas.show',$banda->id)}}" class="btn btn-link"><span class="oi oi-eye"></span></a>
- 		</td>
-
- 	</tr>
- 	 @endforeach 
- 	  </tbody>
-
- </table>
-@endif
+                                            </div> 
+                                        </a>
+                                        <div class="card-body text-center">
+                                            <h6>
+                                                <a class="event_title" href="{{ route('banda.usuario',$banda->id) }}" style="font-size: 22px;">{{$banda->nombre}}</a>
+                               
+                                            </h6>
+                                        </div> 
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 @endsection 

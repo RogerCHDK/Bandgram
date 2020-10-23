@@ -6,19 +6,26 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Producto;
 use App\Categoria;
-
+use App\FotoProducto;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File; 
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Http\Response;
 
 class ProductosController extends Controller
 {
-    /**
+    /** 
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-     public function __construct()
+     public function __construct() 
     {
         //$this->middleware('auth');
-        $this->middleware('auth:artista',['except'=>['index_usuario','show']]);
+        $this->middleware('artista',['except'=>['index_usuario','show','getImage','show_usuario']]); 
+        $this->middleware('auth:artista',['except'=>['index_usuario','show','getImage','show_usuario']]);
     }
 
     public function index() 
@@ -46,22 +53,45 @@ class ProductosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) 
     {
+<<<<<<< HEAD
         $producto=Producto::create($request->all());
         return redirect()->route('productos.index')->with(['message' => 'Producto creado correctamente']); ;
+=======
+        $validate = $this->validate($request, [
+            'nombre' => ['required','String', 'max:255'],
+            'precio' => ['required','numeric','min:0'],
+            'descripcion' => ['required','String'], 
+            'categoria_id' => ['required'],
+            'stock' => ['required','numeric','min:0'],
+        ]);
+        $producto=Producto::create($request->all()); 
+        $message = "Producto ". $producto->nombre ." creado correctamente";
+        return redirect()->route('productos.index')->with('message',$message);
+>>>>>>> 5aa6b393c74cd2a072d492ff6d4952f76420e74c
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $id 
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $productos = Producto::findOrFail($id);
-        return view('producto.show',compact("productos"));
+        $fotos = FotoProducto::where('producto_id',$id)->get();
+        $bandera = true;
+        return view('producto.show')->with('productos',$productos)->with('fotos',$fotos)->with('bandera',$bandera); 
+    }
+
+    public function show_usuario($id)
+    {
+        $productos = Producto::findOrFail($id);
+        $fotos = FotoProducto::where('producto_id',$id)->get();
+        $bandera = true;
+        return view('producto.show_usuario')->with('productos',$productos)->with('fotos',$fotos)->with('bandera',$bandera); 
     }
 
     /**
@@ -92,8 +122,9 @@ class ProductosController extends Controller
         $productos->descripcion = $request->descripcion;
         $productos->categoria_id = $request->categoria_id;
         $productos->stock = $request->stock;
-        $productos->save(); 
-        return redirect()->route('productos.index');
+        $productos->save();  
+        $message = "Cambios guardados correctamente";
+        return redirect()->route('productos.index')->with('message',$message);
     }
 
     /**
@@ -112,7 +143,53 @@ class ProductosController extends Controller
 
      public function index_usuario()
     {
-        $productos = Producto::all();
+        $productos = Producto::where('status',1)->get();
         return view('producto.index_usuario',compact("productos"));
     }
+
+     public function imagen($id)
+    { 
+        $productos = Producto::findOrFail($id);
+        return view('producto.agregar_imagenes',compact("productos"));
+    }
+
+    public function crear_imagen(Request $request)
+    { 
+        $imagen = $request->file('foto');  
+        $message = "";
+        if ($imagen) {
+             //ponerle un nombre unico
+            $imagen_nombre = time().$imagen->getClientOriginalName();
+            $imagen_redimensionada = Image::make($imagen);
+
+            $imagen_redimensionada->resize(200,null,function($c){
+                $c->aspectRatio(); 
+            })->save(storage_path('app/productos/'.$imagen_nombre));
+            
+            $foto_producto=FotoProducto::create(
+                [
+                'nombre' => $request->nombre, 
+                'foto' => $imagen_nombre,
+                'producto_id' => $request->producto_id,
+                'status' => $request->status,
+            ]
+                );
+            $message = "Foto agregada"; 
+        } 
+
+        
+        return redirect()->route('productos.index')->with('message',$message);
+    }
+
+    //Obtener la imagen
+    public function getImage($fileName)
+    {
+        $file = Storage::disk('productos')->get($fileName);
+        return new Response($file, 200);   
+    }
+
+
+
+   
+
 }

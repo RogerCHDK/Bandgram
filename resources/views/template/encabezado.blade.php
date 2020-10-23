@@ -21,6 +21,7 @@
 
   <!-- Custom styles for this template -->
   <link href="{!!asset('estilos/css/grayscale.min.css')!!}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
 
 
 

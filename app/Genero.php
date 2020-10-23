@@ -11,4 +11,9 @@ class Genero extends Model
         'nombre','status',
     ]; 
 
+    public function canciones()
+    {
+        return $this->hasMany('App\Cancion'); 
+    }
+ 
 }

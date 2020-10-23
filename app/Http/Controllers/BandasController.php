@@ -6,29 +6,39 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Genero;
 use App\Banda;
-use Illuminate\Support\Facades\Storage;
+use App\Integrante;
+use Illuminate\Support\Facades\Storage; 
 use Illuminate\Support\Facades\File; 
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Http\Response; 
 
-class BandasController extends Controller 
-{
+class BandasController extends Controller    
+{ 
     /** 
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-     public function __construct()
+     public function __construct() 
     {
         //$this->middleware('auth'); 
-      $this->middleware('auth:artista',['except'=>['index_usuario','show']]);
+        $this->middleware('artista',['except'=>['index_usuario','show','getImage','show_usuario']]); 
+        $this->middleware('auth:artista',['except'=>['index_usuario','show','getImage','show_usuario']]);
     }
 
     public function index() 
     {
+        $artista=Auth::user()->id; 
+        $bandas = Banda::where('status',1)->get();
+        return view('banda.index')->with('bandas',$bandas)->with('artista',$artista); 
+    }
+
+     public function mis_bandas()  
+    {
         $artista=Auth::user()->id;
-        $bandas=Banda::where('artista_id',$artista)->where('status',1)->orderBy('nombre')->get();
-        return view('banda.index')->with('bandas',$bandas); 
+        //$bandas=Banda::where('artista_id',$artista)->where('status',1)->orderBy('nombre')->get();
+        $integrantes = Integrante::where('artista_id',$artista)->get();
+        return view('banda.mis_bandas')->with('integrantes',$integrantes)->with('artista',$artista);  
     }
 
     /**
@@ -51,6 +61,12 @@ class BandasController extends Controller
      */ 
     public function store(Request $request)
     {
+        $validate = $this->validate($request, [
+            'nombre' => ['required','String', 'max:255'],
+            'biografia' => ['required','String'],
+            'foto' => ['required','mimes:jpeg,png'],
+            'genero_id' => ['required'],
+        ]);
         $imagen = $request->file('foto');  
         if ($imagen) {
             //ponerle un nombre unico
@@ -76,7 +92,16 @@ class BandasController extends Controller
             'status' => $request->status,
         ]
         );
-        return redirect()->route('bandas.index'); 
+
+        $integrante = Integrante::create(
+            [
+                'artista_id' => $request->artista_id,
+                'banda_id' => $banda->id,
+                'status' => 1,
+            ] 
+        );
+        $message = "Banda creada correctamente";
+        return redirect()->route('bandas.mine')->with('message',$message); 
     }
 
     /**
@@ -87,8 +112,17 @@ class BandasController extends Controller
      */
     public function show($id)
     {
+        
         $bandas = Banda::findOrFail($id);
-        return view('banda.show',compact("bandas"));
+        $integrantes = Integrante::where('banda_id',$id)->get();
+        return view('banda.show',compact("bandas","integrantes"));
+    }
+
+    public function show_usuario($id)
+    {
+        $bandas = Banda::findOrFail($id);
+        $integrantes = Integrante::where('banda_id',$id)->get();
+        return view('banda.show_usuario',compact("bandas","integrantes"));
     }
 
     /**
@@ -119,7 +153,7 @@ class BandasController extends Controller
         $bandas->foto=$request->foto;
         $bandas->genero_id=$request->genero_id;
          $bandas->save(); 
-        return redirect()->route('bandas.index');
+        return redirect()->route('bandas.mine');
     }
 
     /**
@@ -133,7 +167,7 @@ class BandasController extends Controller
         $bandas = Banda::findOrFail($id);
         $bandas->status=0;
         $bandas->save();
-        return redirect()->route('bandas.index');
+        return redirect()->route('bandas.mine');
     }
 
      public function index_usuario()
@@ -146,6 +180,12 @@ class BandasController extends Controller
     public function getImage($fileName)
     {
         $file = Storage::disk('bandas')->get($fileName);
+        return new Response($file, 200);
+    }
+
+    public function unirse()
+    {
+        $file = Storage::disk('bandas')->get($fileName); 
         return new Response($file, 200);
     }
 }

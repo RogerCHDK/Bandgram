@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File; 
 use Intervention\Image\ImageManagerStatic as Image;
 
-class CancionesController extends Controller
+class CancionesController extends Controller 
 {
     /**
      * Display a listing of the resource.
@@ -19,11 +19,10 @@ class CancionesController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function __construct()
+     public function __construct() 
     {
-        //$this->middleware('auth'); 
-        $this->middleware('auth:artista',['except'=>['index_usuario','show']]);
-        //$this->middleware('auth:web',);
+        $this->middleware('artista',['except'=>['index_usuario','show','getImage','getMusic']]); 
+        $this->middleware('auth:artista',['except'=>['index_usuario','show','getImage','getMusic']]);
     }
     public function index()
     {
@@ -52,6 +51,14 @@ class CancionesController extends Controller
      */
     public function store(Request $request)
     { 
+         $validate = $this->validate($request, [
+            'nombre' => ['required','String', 'max:255'],
+            'ruta' => ['required'],
+            'album' => ['required','String', 'max:255'],
+            'foto' => ['required','mimes:jpeg,png'],
+            'genero_id' => ['required'],
+        ]);
+
         $imagen = $request->file('foto');  
         $cancion = $request->file('ruta');
         //$request->hasFile('foto')
@@ -86,8 +93,9 @@ class CancionesController extends Controller
                 'status' => $request->status,
             ]
                 );
+                $message = "Cancion ". $cancion->nombre ." creada correctamente";
 
-        return redirect()->route('canciones.index');
+        return redirect()->route('canciones.index')->with('message',$message);
     } 
 
     /**
@@ -109,7 +117,7 @@ class CancionesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
+    { 
         $canciones = Cancion::findOrFail($id);
         $generos = Genero::all();
         return view('cancion.edit')->with('cancion',$canciones)->with('genero',$generos);
@@ -124,12 +132,43 @@ class CancionesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validate = $this->validate($request, [
+            'nombre' => ['required','String', 'max:255'],
+            'album' => ['required','String', 'max:255'],
+            'foto' => ['mimes:jpeg,png'],
+            'genero_id' => ['required'], 
+        ]);
+        $imagen = $request->file('foto');  
+        $ruta = $request->file('ruta');
         $cancion = Cancion::findOrFail($id); 
+        if ($imagen) {
+            //ponerle un nombre unico
+            $imagen_nombre = time().$imagen->getClientOriginalName();
+            $imagen_redimensionada = Image::make($imagen);
+
+            //Guardar la imagen
+            $imagen_redimensionada->resize(200,null,function($c){
+                $c->aspectRatio();
+            })->save(storage_path('app/cancion/'.$imagen_nombre)); 
+            Storage::disk('cancion')->delete($cancion->foto); 
+
+            $cancion->foto = $imagen_nombre;
+
+        }
+        
+        if ($ruta) {
+            $cancion_nombre =time().'_'.$ruta->getClientOriginalName();
+            Storage::disk('canciones')->put($cancion_nombre, File::get($ruta));
+            Storage::disk('canciones')->delete($cancion->ruta); 
+            $cancion->ruta = $cancion_nombre;
+        }
+
         $cancion->nombre = $request->nombre;  
         $cancion->album = $request->album; 
         $cancion->genero_id = $request->genero_id; 
         $cancion->save(); 
-        return redirect()->route('canciones.index');
+        $message = "Cambios guardados correctamente";
+        return redirect()->route('canciones.index')->with('message',$message);
     } 
 
     /**
@@ -143,20 +182,23 @@ class CancionesController extends Controller
         $cancion = Cancion::findOrFail($id);
         $cancion->status=0;
         $cancion->save();
-        return redirect()->route('canciones.index');
+        Storage::disk('canciones')->delete($cancion->ruta); 
+        $message = "Cancion eliminada ".$cancion->nombre ." correctamene";
+        return redirect()->route('canciones.index')->with('message',$message);
     }
 
     public function index_usuario()
     {
-        $canciones = Cancion::all();
-        return view('cancion.index_usuario',compact("canciones"));
+        $genero = Genero::all();
+        $canciones = Cancion::where('status',1)->get();
+        return view('cancion.index_usuario')->with('canciones',$canciones)->with('generos',$genero);
     }
 
     //Obtener imagen de la musica
     public function getImage($fileName)
     {
         $file = Storage::disk('cancion')->get($fileName);
-        return new Response($file, 200);
+        return new Response($file, 200); 
     }
 
      //Obtener cancion

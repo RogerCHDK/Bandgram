@@ -36,14 +36,14 @@ class LoginController extends Controller
      */
     public function __construct() 
     {
-       $this->middleware('guest')->except('logout');
+       $this->middleware('guest')->except('logout'); 
     }
 
           
         protected function redirectTo($user)  
         {
             if ($user->tipo_usuario == 1) {
-            return 'usuario'; 
+            return '/index_cancion'; 
             }
         elseif ($user->tipo_usuario == 2) {
             

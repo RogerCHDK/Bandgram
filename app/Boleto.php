@@ -13,6 +13,11 @@ class Boleto extends Model
 
     public function evento()
     {
-        return $this->belongsTo('App\Evento');
+        return $this->belongsTo('App\Evento'); 
+    }
+
+    public function compra()
+    {
+        return $this->hasMany('App\CompraBoleto'); 
     }
 }
