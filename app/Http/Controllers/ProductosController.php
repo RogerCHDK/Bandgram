@@ -55,10 +55,6 @@ class ProductosController extends Controller
      */
     public function store(Request $request) 
     {
-<<<<<<< HEAD
-        $producto=Producto::create($request->all());
-        return redirect()->route('productos.index')->with(['message' => 'Producto creado correctamente']); ;
-=======
         $validate = $this->validate($request, [
             'nombre' => ['required','String', 'max:255'],
             'precio' => ['required','numeric','min:0'],
@@ -69,7 +65,6 @@ class ProductosController extends Controller
         $producto=Producto::create($request->all()); 
         $message = "Producto ". $producto->nombre ." creado correctamente";
         return redirect()->route('productos.index')->with('message',$message);
->>>>>>> 5aa6b393c74cd2a072d492ff6d4952f76420e74c
     }
 
     /**

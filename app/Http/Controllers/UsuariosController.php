@@ -30,7 +30,7 @@ class UsuariosController extends Controller
     {
         $estado = Estado::all();
         $municipio = Municipio::all();
-        return view('usuario.create')->with('estado',$estado)->with('municipio',$municipio);
+        return view('usuario.create')->with('estado',$estado)->with('municipio',$municipio); 
     }
 
     /**

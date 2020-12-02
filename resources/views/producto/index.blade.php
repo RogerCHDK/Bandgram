@@ -1,21 +1,11 @@
   @extends('template.master_artista')
 
 @section('contenido_central')    
-<<<<<<< HEAD
- @if(session('message')) 
-=======
 @if(session('message')) 
->>>>>>> 5aa6b393c74cd2a072d492ff6d4952f76420e74c
         <div class="alert alert-success">
             {{ session('message') }}
         </div>
     @endif
-<<<<<<< HEAD
- <br/><br/><br/><br/>
- <a class="btn btn-primary" style="width: 250px; height: 45px;" href="{{route('productos.create')}}">Agregar producto</a> 
-
- @if($productos->isNotEmpty())  
-=======
 
  <div class="card shadow">
     <div class="card-header py-3">
@@ -32,7 +22,6 @@
                             <div class="card-body"> 
                             <div class="row">
                              @foreach($productos as $producto)
->>>>>>> 5aa6b393c74cd2a072d492ff6d4952f76420e74c
 
                                 <div class="col-md-6 col-lg-4"> 
                                     <div class="card border-0">
