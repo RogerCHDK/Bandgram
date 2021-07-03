@@ -49,7 +49,7 @@
 
                                             </div> 
                                             <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center marco zoom-on-hover">
-                                            <audio src="{{route('cancion.audio',$cancion->ruta)}}" controls autoplay loop>
+                                            <audio src="{{route('cancion.audio',$cancion->ruta)}}" controls>
                                         </div>
 
                                     <div class="card-body text-center">

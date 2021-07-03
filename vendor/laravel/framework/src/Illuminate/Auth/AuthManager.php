@@ -52,7 +52,7 @@ class AuthManager implements FactoryContract
 
         $this->userResolver = function ($guard = null) {
             return $this->guard($guard)->user();
-        }; 
+        };
     }
 
     /**
