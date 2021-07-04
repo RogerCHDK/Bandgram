@@ -99,13 +99,13 @@ class RegisterController extends Controller
             if ($imagen) {
                 //ponerle un nombre unico
             $imagen_nombre = time().$imagen->getClientOriginalName();
-            $imagen_redimensionada = Image::make($imagen);
+            // $imagen_redimensionada = Image::make($imagen);
 
             //Guardar la imagen
-            //Storage::disk('cancion')->put($imagen_nombre, File::get($imagen));
-            $imagen_redimensionada->resize(200,null,function($c){
-                $c->aspectRatio();
-            })->save(storage_path('app/artista/'.$imagen_nombre));
+            Storage::disk('artista')->put($imagen_nombre, File::get($imagen));
+            // $imagen_redimensionada->resize(200,null,function($c){
+            //     $c->aspectRatio();
+            // })->save(storage_path('app/artista/'.$imagen_nombre));
 
             $data['foto'] = $imagen_nombre;
             }
