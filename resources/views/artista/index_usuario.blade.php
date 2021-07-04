@@ -25,7 +25,7 @@
                                         </a>
                                         <div class="card-body text-center">
                                             <h6>
-                                                <a class="event_title" href="{{ route('artista.show',$artista->id) }}" style="font-size: 22px;">{{$artista->nombre}}</a>
+                                                <a class="event_title" href="{{ route('artista.usuario',$artista->id) }}" style="font-size: 22px;">{{$artista->nombre}}</a>
                                             </h6>
                                         </div>
                                         

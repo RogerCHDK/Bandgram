@@ -1,11 +1,9 @@
 
 
-@auth('web')
-@extends('template.master_usuario')
-@endauth 
+@extends(Auth::user()->tipo_usuario == 1 ? 'template.master_usuario' : 'template.master_artista')  
 
 
-@section('contenido_central')  
+@section('contenido_central')   
 
 
 <div class="card shadow">
@@ -64,7 +62,9 @@
 
                                         <div class="card-body text-center">
                                             <h6>
-                                                <a class="event_title" href="{{ route('canciones.show',$cancion->id) }}" style="font-size: 22px;">{{$cancion->nombre}}</a>
+                                                <a class="event_title" 
+                                                href="{{$usuario->tipo_usuario == 1 ? route('cancion.usuario',$cancion->id) : route('canciones.show',$cancion->id)}}" 
+                                                style="font-size: 22px;">{{$cancion->nombre}}</a>
                                             </h6>
                                         </div>
                                         
@@ -93,9 +93,11 @@
 
                                             </div> 
                                         </a>
-                                        <div class="card-body text-center">
+                                        <div class="card-body text-center"> 
                                             <h6>
-                                                <a class="event_title" href="{{ route('videos.show',$video->id) }}" style="font-size: 22px;">{{$video->nombre}}</a>
+                                                <a class="event_title" 
+                                                href="{{$usuario->tipo_usuario == 1 ? route('video.usuario',$video->id) : route('videos.show',$video->id) }}"
+                                                 style="font-size: 22px;">{{$video->nombre}}</a>
                                             </h6>
                                         </div>
                                         
@@ -145,7 +147,9 @@
 
                                         <div class="card-body text-center">
                                             <h6>
-                                                <a class="event_title" href="{{ route('eventos.show',$evento->id) }}" style="font-size: 22px;">{{$evento->nombre_locacion}}</a>
+                                                <a class="event_title" 
+                                                href="{{$usuario->tipo_usuario == 1 ? route('evento.usuario',$evento->id) : route('eventos.show',$evento->id) }}" 
+                                                style="font-size: 22px;">{{$evento->nombre_locacion}}</a>
                                             </h6>
                                         </div>
                                         
@@ -196,7 +200,9 @@
 
                                         <div class="card-body text-center">
                                             <h6>
-                                                <a class="event_title" href="{{ route('productos.show',$producto->id) }}" style="font-size: 22px;">{{$producto->nombre}}</a>
+                                                <a class="event_title" 
+                                                href="{{$usuario->tipo_usuario == 1 ? route('producto.usuario',$producto->id) : route('productos.show',$producto->id) }}" 
+                                                style="font-size: 22px;">{{$producto->nombre}}</a>
                                             </h6>
                                         </div>
                                         
@@ -246,8 +252,12 @@
                                         <div class="card-body text-center">
                                             <h6>
                                                 @foreach($evento->boletos as $boleto)
-                                                <a class="event_title" href="{{ route('boletos.show',$boleto->id) }}" style="font-size: 22px;">{{$evento->nombre_locacion}}</a><br/>
-                                                <a class="event_title" href="{{ route('boletos.show',$boleto->id) }}" style="font-size: 22px;">${{$boleto->precio}}</a>
+                                                <a class="event_title" 
+                                                href="{{$usuario->tipo_usuario == 1 ?  route('boleto.usuario',$boleto->id) : route('boletos.show',$boleto->id) }}" 
+                                                style="font-size: 22px;">{{$evento->nombre_locacion}}</a><br/>
+                                                <a class="event_title" 
+                                                href="{{$usuario->tipo_usuario == 1 ?  route('boleto.usuario',$boleto->id) : route('boletos.show',$boleto->id) }}"
+                                                style="font-size: 22px;">${{$boleto->precio}}</a>
                                                 @endforeach
                                             </h6>
                                         </div>

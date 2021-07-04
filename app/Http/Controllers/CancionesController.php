@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File; 
 use Intervention\Image\ImageManagerStatic as Image;
 
+use function PHPUnit\Framework\isEmpty;
+
 class CancionesController extends Controller 
 {
     /**
@@ -21,8 +23,8 @@ class CancionesController extends Controller
 
      public function __construct() 
     {
-        $this->middleware('artista',['except'=>['index_usuario','show','getImage','getMusic']]); 
-        $this->middleware('auth:artista',['except'=>['index_usuario','show','getImage','getMusic']]);
+        $this->middleware('artista',['except'=>['index_usuario','getImage','getMusic','show_usuario']]); 
+        $this->middleware('auth:artista',['except'=>['index_usuario','getImage','getMusic','show_usuario']]);
     }
     public function index()
     {
@@ -107,7 +109,19 @@ class CancionesController extends Controller
     public function show($id)
     {
         $canciones = Cancion::findOrFail($id);
-        return view('cancion.show',compact("canciones"));
+        $usuario = Auth::user()->tipo_usuario;
+        return view('cancion.show')
+        ->with('usuario',$usuario)
+        ->with('canciones',$canciones);
+    }
+
+    public function show_usuario($id)
+    {
+        $canciones = Cancion::findOrFail($id);
+        $usuario = Auth::user()->tipo_usuario;
+        return view('cancion.show')
+        ->with('usuario',$usuario)
+        ->with('canciones',$canciones);
     }
 
     /**

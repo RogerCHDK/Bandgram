@@ -124,3 +124,6 @@ Route::get('show-producto/{id}', 'ProductosController@show_usuario')->name('prod
 Route::get('show-evento/{id}', 'EventosController@show_usuario')->name('evento.usuario');  
 Route::get('show-boleto/{id}', 'BoletosController@show_usuario')->name('boleto.usuario');
 Route::get('show-banda/{id}', 'BandasController@show_usuario')->name('banda.usuario');   
+
+Route::get('show-cancion/{id}', 'CancionesController@show_usuario')->name('cancion.usuario'); 
+Route::get('show-artista/{id}', 'ArtistasController@show_usuario')->name('artista.usuario');   

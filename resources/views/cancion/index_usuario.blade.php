@@ -54,7 +54,7 @@
 
                                     <div class="card-body text-center">
                                         <h6>
-                                            <a class="event_title" href="{{route('canciones.show',$cancion->id)}}" style="font-size: 22px;">{{$cancion->nombre}}<br></a>
+                                            <a class="event_title" href="{{route('cancion.usuario',$cancion->id)}}" style="font-size: 22px;">{{$cancion->nombre}}<br></a>
                                         </h6>
                                     </div>
                                 </div>

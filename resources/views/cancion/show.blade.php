@@ -1,9 +1,10 @@
-@extends('template.master_artista')
+{{-- @extends('template.master_artista') --}}
+
+@extends($usuario == 1 ? 'template.master_usuario' : 'template.master_artista') 
  
 @section('contenido_central') 
 
-
- <div class="card shadow">
+ <div class="card shadow"> 
         <div class="card-header py-3">
             <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">{{$canciones->nombre}}</p> 
         </div> 
@@ -40,7 +41,9 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <span style="color: rgb(0,0,0);font-size: 18px;">Canción de&nbsp;<a class="event_title" href="{{route('artista.show',$canciones->artista->id)}}" style="font-size: 20px;">{{$canciones->artista->nombre}}</a></span>
+                                <span style="color: rgb(0,0,0);font-size: 18px;">Canción de&nbsp;<a class="event_title" 
+                                    href="{{$usuario == 1 ? route('artista.usuario',$canciones->artista->id) : route('artista.show',$canciones->artista->id)}}" 
+                                    style="font-size: 20px;">{{$canciones->artista->nombre}}</a></span>
                             </div> 
                         </div>
                     </div>

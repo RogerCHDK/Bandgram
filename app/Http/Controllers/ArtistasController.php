@@ -22,7 +22,7 @@ class ArtistasController extends Controller
     public function __construct()
     {
         //$this->middleware('auth');
-        $this->middleware('auth:artista',['only'=>['index']]);
+        $this->middleware('auth:artista',['only'=>['index','show']]);
     }
    
     
@@ -82,9 +82,35 @@ class ArtistasController extends Controller
         $eventos = Evento::where('artista_id',$artista->id)->where('status',1)->get();
         $productos = Producto::where('artista_id',$artista->id)->where('status',1)->get();
         //$boletos = Boleto::where('artista_id',$artista->id)->where('status',1)->get(); 
+        $usuario = Auth::user();
       
-        return view('artista.show')->with('artista',$artista)->with('canciones',$canciones)
-        ->with('videos',$videos)->with('eventos',$eventos)->with('productos',$productos); 
+        return view('artista.show')
+        ->with('artista',$artista)
+        ->with('canciones',$canciones)
+        ->with('videos',$videos)
+        ->with('eventos',$eventos)
+        ->with('productos',$productos)
+        ->with('usuario',$usuario); 
+        
+    }
+
+    public function show_usuario($id)  
+    {
+        $artista = Artista::findOrFail($id); 
+        $canciones = Cancion::where('artista_id',$artista->id)->where('status',1)->get();
+        $videos = Video::where('artista_id',$artista->id)->where('status',1)->get();
+        $eventos = Evento::where('artista_id',$artista->id)->where('status',1)->get();
+        $productos = Producto::where('artista_id',$artista->id)->where('status',1)->get();
+        //$boletos = Boleto::where('artista_id',$artista->id)->where('status',1)->get(); 
+        $usuario = Auth::user();
+      
+        return view('artista.show')
+        ->with('artista',$artista)
+        ->with('canciones',$canciones)
+        ->with('videos',$videos)
+        ->with('eventos',$eventos)
+        ->with('productos',$productos)
+        ->with('usuario',$usuario); 
         
     }
 
