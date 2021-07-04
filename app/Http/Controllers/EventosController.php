@@ -164,12 +164,12 @@ class EventosController extends Controller
         if ($imagen) {
              //ponerle un nombre unico
             $imagen_nombre = time().$imagen->getClientOriginalName();
-            $imagen_redimensionada = Image::make($imagen);
+            // $imagen_redimensionada = Image::make($imagen);
 
-            $imagen_redimensionada->resize(200,null,function($c){
-                $c->aspectRatio(); 
-            })->save(storage_path('app/eventos/'.$imagen_nombre));
-            
+            // $imagen_redimensionada->resize(200,null,function($c){
+            //     $c->aspectRatio(); 
+            // })->save(storage_path('app/eventos/'.$imagen_nombre));
+            Storage::disk('eventos')->put($imagen_nombre, File::get($imagen));
             $foto_evento=FotoEvento::create(
                 [
                 'nombre' => $request->nombre, 

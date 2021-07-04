@@ -65,13 +65,13 @@ class CancionesController extends Controller
         if ($imagen) {
             //ponerle un nombre unico
             $imagen_nombre = time().$imagen->getClientOriginalName();
-            $imagen_redimensionada = Image::make($imagen);
+            // $imagen_redimensionada = Image::make($imagen);
 
             //Guardar la imagen
-            //Storage::disk('cancion')->put($imagen_nombre, File::get($imagen));
-            $imagen_redimensionada->resize(200,null,function($c){
-                $c->aspectRatio();
-            })->save(storage_path('app/cancion/'.$imagen_nombre));
+            Storage::disk('cancion')->put($imagen_nombre, File::get($imagen));
+            // $imagen_redimensionada->resize(200,null,function($c){
+            //     $c->aspectRatio();
+            // })->save(storage_path('app/cancion/'.$imagen_nombre));
 
             $request->foto = $imagen_nombre;
 
@@ -144,12 +144,13 @@ class CancionesController extends Controller
         if ($imagen) {
             //ponerle un nombre unico
             $imagen_nombre = time().$imagen->getClientOriginalName();
-            $imagen_redimensionada = Image::make($imagen);
+            // $imagen_redimensionada = Image::make($imagen);
 
             //Guardar la imagen
-            $imagen_redimensionada->resize(200,null,function($c){
-                $c->aspectRatio();
-            })->save(storage_path('app/cancion/'.$imagen_nombre)); 
+            // $imagen_redimensionada->resize(200,null,function($c){
+            //     $c->aspectRatio();
+            // })->save(storage_path('app/cancion/'.$imagen_nombre)); 
+            Storage::disk('cancion')->put($imagen_nombre, File::get($imagen));
             Storage::disk('cancion')->delete($cancion->foto); 
 
             $cancion->foto = $imagen_nombre;

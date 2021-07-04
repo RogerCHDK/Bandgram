@@ -155,12 +155,12 @@ class ProductosController extends Controller
         if ($imagen) {
              //ponerle un nombre unico
             $imagen_nombre = time().$imagen->getClientOriginalName();
-            $imagen_redimensionada = Image::make($imagen);
+            // $imagen_redimensionada = Image::make($imagen);
 
-            $imagen_redimensionada->resize(200,null,function($c){
-                $c->aspectRatio(); 
-            })->save(storage_path('app/productos/'.$imagen_nombre));
-            
+            // $imagen_redimensionada->resize(200,null,function($c){
+            //     $c->aspectRatio(); 
+            // })->save(storage_path('app/productos/'.$imagen_nombre)); 
+            Storage::disk('productos')->put($imagen_nombre, File::get($imagen));
             $foto_producto=FotoProducto::create(
                 [
                 'nombre' => $request->nombre, 

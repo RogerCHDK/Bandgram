@@ -53,7 +53,7 @@
                                             </div> 
                                         </a>
                                         <div>
-                                            <audio src="{{route('cancion.audio',$cancion->ruta)}}" controls autoplay loop>
+                                            <audio src="{{route('cancion.audio',$cancion->ruta)}}" controls  loop>
                                         </div>
                                         
 
