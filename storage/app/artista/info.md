@@ -1,0 +1,1 @@
+## Carpeta donde se guarda las imagenes de perfil de los artistas
